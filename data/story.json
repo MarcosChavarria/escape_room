@@ -1,544 +1,665 @@
-{
-  "meta": {
-    "title": {
-      "en": "Chrono Academy Escape",
-      "es": "Escape de la Academia Chrono"
-    },
-    "subtitle": {
-      "en": "Recover the Time Core before the school collapses into a time loop.",
-      "es": "Recupera el Nucleo del Tiempo antes de que la escuela colapse en un bucle temporal."
-    },
-    "footer": {
-      "en": "Teacher mode: project this screen and guide team discussion.",
-      "es": "Modo profesor: proyecta esta pantalla y guia la discusion del equipo."
-    },
-    "teamSize": 6
-  },
-  "ui": {
-    "langToggle": {
-      "en": "Ver en Espanol",
-      "es": "View in English"
-    },
-    "setupTitle": {
-      "en": "Create Your Team",
-      "es": "Crea tu equipo"
-    },
-    "setupDescription": {
-      "en": "Enter the names of all participants. Turns will rotate automatically.",
-      "es": "Ingresa los nombres de todos los participantes. Los turnos rotaran automaticamente."
-    },
-    "participantCountLabel": {
-      "en": "Number of participants",
-      "es": "Cantidad de participantes"
-    },
-    "turnModeLabel": {
-      "en": "Turn selection mode",
-      "es": "Modo de seleccion de turnos"
-    },
-    "turnModeOrdered": {
-      "en": "Ordered (input order)",
-      "es": "Ordenado (orden de ingreso)"
-    },
-    "turnModeRandom": {
-      "en": "Random (balanced)",
-      "es": "Aleatorio (balanceado)"
-    },
-    "playerPlaceholder": {
-      "en": "Participant",
-      "es": "Participante"
-    },
-    "startGame": {
-      "en": "Start Escape",
-      "es": "Iniciar escape"
-    },
-    "setupError": {
-      "en": "Please complete all participant names.",
-      "es": "Completa todos los nombres de participantes."
-    },
-    "roundLabel": {
-      "en": "Round",
-      "es": "Ronda"
-    },
-    "turnLabel": {
-      "en": "Current Responder",
-      "es": "Participante actual"
-    },
-    "scoreboardLabel": {
-      "en": "Team Progress",
-      "es": "Progreso del equipo"
-    },
-    "scoreLine": {
-      "en": "solved",
-      "es": "resueltos"
-    },
-    "objectiveLabel": {
-      "en": "Mission",
-      "es": "Mision"
-    },
-    "puzzleLabel": {
-      "en": "Challenge",
-      "es": "Desafio"
-    },
-    "search": {
-      "en": "Search for Clue",
-      "es": "Buscar pista"
-    },
-    "hint": {
-      "en": "Show Hint",
-      "es": "Mostrar pista"
-    },
-    "nextHint": {
-      "en": "Next Hint",
-      "es": "Siguiente pista"
-    },
-    "submit": {
-      "en": "Submit Choice",
-      "es": "Enviar opcion"
-    },
-    "chooseOption": {
-      "en": "Select one option first.",
-      "es": "Selecciona una opcion primero."
-    },
-    "searchFirst": {
-      "en": "Search the room first. You still need the hidden clue.",
-      "es": "Primero explora la sala. Aun necesitas la pista oculta."
-    },
-    "correct": {
-      "en": "Correct. The team advances.",
-      "es": "Correcto. El equipo avanza."
-    },
-    "incorrect": {
-      "en": "Incorrect. Turn passes to the next participant.",
-      "es": "Incorrecto. El turno pasa al siguiente participante."
-    },
-    "completed": {
-      "en": "Escape successful!",
-      "es": "Escape exitoso"
-    },
-    "completedDescription": {
-      "en": "The Time Core is stable. Your team saved Chrono Academy.",
-      "es": "El Nucleo del Tiempo esta estable. Tu equipo salvo la Academia Chrono."
-    },
-    "bonusTag": {
-      "en": "Bonus",
-      "es": "Extra"
-    }
-  },
-  "scenes": [
-    {
-      "id": "scene-1",
-      "image": "images/img_scene_1_archive_hall.png",
-      "title": {
-        "en": "Scene 1: Archive Hall",
-        "es": "Escena 1: Sala de Archivos"
-      },
-      "description": {
-        "en": "A locked cabinet guards the first fragment of the Time Core.",
-        "es": "Un gabinete cerrado protege el primer fragmento del Nucleo del Tiempo."
-      },
-      "objective": {
-        "en": "Choose the correct tense to unlock the cabinet.",
-        "es": "Elige el tiempo verbal correcto para abrir el gabinete."
-      },
-      "question": {
-        "en": "Yesterday, the principal ____ the emergency protocol.",
-        "es": "Ayer, el director ____ el protocolo de emergencia."
-      },
-      "options": [
-        {
-          "id": "a",
-          "en": "activate",
-          "es": "activate"
-        },
-        {
-          "id": "b",
-          "en": "activated",
-          "es": "activated"
-        },
-        {
-          "id": "c",
-          "en": "activates",
-          "es": "activates"
-        },
-        {
-          "id": "d",
-          "en": "is activating",
-          "es": "is activating"
-        }
-      ],
-      "correctOptionId": "b",
-      "hints": [
-        {
-          "en": "Look at the time marker: yesterday.",
-          "es": "Observa el marcador temporal: ayer."
-        },
-        {
-          "en": "Use simple past.",
-          "es": "Usa pasado simple."
-        }
-      ]
-    },
-    {
-      "id": "scene-2",
-      "image": "images/img_scene_2_map_room.png",
-      "title": {
-        "en": "Scene 2: Map Room",
-        "es": "Escena 2: Sala de Mapas"
-      },
-      "description": {
-        "en": "A projection map shows four routes, but only one reaches the reactor safely.",
-        "es": "Un mapa proyectado muestra cuatro rutas, pero solo una llega al reactor con seguridad."
-      },
-      "objective": {
-        "en": "Pick the best synonym to decode route instructions.",
-        "es": "Elige el mejor sinonimo para decodificar las instrucciones de ruta."
-      },
-      "question": {
-        "en": "Choose the best synonym for 'dangerous' in this context.",
-        "es": "Elige el mejor sinonimo de 'dangerous' en este contexto."
-      },
-      "options": [
-        {
-          "id": "a",
-          "en": "safe",
-          "es": "seguro"
-        },
-        {
-          "id": "b",
-          "en": "risky",
-          "es": "arriesgado"
-        },
-        {
-          "id": "c",
-          "en": "calm",
-          "es": "calmado"
-        },
-        {
-          "id": "d",
-          "en": "silent",
-          "es": "silencioso"
-        }
-      ],
-      "correctOptionId": "b",
-      "hints": [
-        {
-          "en": "It describes a situation with possible harm.",
-          "es": "Describe una situacion con posible dano."
-        },
-        {
-          "en": "Starts with R.",
-          "es": "Comienza con R."
-        }
-      ]
-    },
-    {
-      "id": "scene-3",
-      "image": "images/img_scene_3_chem_lab.png",
-      "title": {
-        "en": "Scene 3: Chemistry Lab",
-        "es": "Escena 3: Laboratorio de Quimica"
-      },
-      "description": {
-        "en": "A coded vial is hidden in a cabinet with a biometric lock.",
-        "es": "Un vial codificado esta escondido en un gabinete con bloqueo biometrico."
-      },
-      "objective": {
-        "en": "Search the lab first, then solve the clue question.",
-        "es": "Primero investiga el laboratorio y luego resuelve la pregunta de la pista."
-      },
-      "question": {
-        "en": "After searching, identify the correct sentence in passive voice.",
-        "es": "Despues de buscar, identifica la oracion correcta en voz pasiva."
-      },
-      "requiresSearch": true,
-      "searchClue": {
-        "en": "You find a note: 'The formula is protected by passive structure.'",
-        "es": "Encuentras una nota: 'La formula esta protegida por estructura pasiva'."
-      },
-      "options": [
-        {
-          "id": "a",
-          "en": "The scientist mixed the sample.",
-          "es": "The scientist mixed the sample."
-        },
-        {
-          "id": "b",
-          "en": "The sample was mixed by the scientist.",
-          "es": "The sample was mixed by the scientist."
-        },
-        {
-          "id": "c",
-          "en": "The scientist is mixing the sample.",
-          "es": "The scientist is mixing the sample."
-        },
-        {
-          "id": "d",
-          "en": "The sample mixes quickly.",
-          "es": "The sample mixes quickly."
-        }
-      ],
-      "correctOptionId": "b",
-      "hints": [
-        {
-          "en": "Passive voice usually uses 'be' + past participle.",
-          "es": "La voz pasiva suele usar 'be' + participio pasado."
-        },
-        {
-          "en": "Look for 'was'.",
-          "es": "Busca 'was'."
-        }
-      ]
-    },
-    {
-      "id": "scene-4",
-      "image": "images/img_scene_4_server_room.png",
-      "title": {
-        "en": "Scene 4: Server Room",
-        "es": "Escena 4: Sala de Servidores"
-      },
-      "description": {
-        "en": "The AI guardian asks a conditional question before granting access.",
-        "es": "El guardian IA hace una pregunta condicional antes de dar acceso."
-      },
-      "objective": {
-        "en": "Select the correct first conditional sentence.",
-        "es": "Selecciona la oracion correcta de primer condicional."
-      },
-      "question": {
-        "en": "Choose the grammatically correct first conditional sentence.",
-        "es": "Elige la oracion gramaticalmente correcta de primer condicional."
-      },
-      "options": [
-        {
-          "id": "a",
-          "en": "If we will hurry, we escape.",
-          "es": "If we will hurry, we escape."
-        },
-        {
-          "id": "b",
-          "en": "If we hurry, we will escape.",
-          "es": "If we hurry, we will escape."
-        },
-        {
-          "id": "c",
-          "en": "If we hurried, we will escape.",
-          "es": "If we hurried, we will escape."
-        },
-        {
-          "id": "d",
-          "en": "If we hurry, we escaped.",
-          "es": "If we hurry, we escaped."
-        }
-      ],
-      "correctOptionId": "b",
-      "hints": [
-        {
-          "en": "First conditional: If + present, will + base verb.",
-          "es": "Primer condicional: If + presente, will + verbo base."
-        }
-      ]
-    },
-    {
-      "id": "scene-5",
-      "image": "images/img_scene_5_hologram_chamber.png",
-      "title": {
-        "en": "Scene 5: Hologram Chamber",
-        "es": "Escena 5: Camara Holografica"
-      },
-      "description": {
-        "en": "A hologram displays a dialogue with one missing response.",
-        "es": "Un holograma muestra un dialogo con una respuesta faltante."
-      },
-      "objective": {
-        "en": "Pick the option that best completes the conversation.",
-        "es": "Elige la opcion que mejor completa la conversacion."
-      },
-      "question": {
-        "en": "A: 'Could you open the emergency gate?' B: '____'",
-        "es": "A: 'Could you open the emergency gate?' B: '____'"
-      },
-      "options": [
-        {
-          "id": "a",
-          "en": "Yes, I can do that right now.",
-          "es": "Si, puedo hacerlo ahora mismo."
-        },
-        {
-          "id": "b",
-          "en": "I am opening yesterday.",
-          "es": "I am opening yesterday."
-        },
-        {
-          "id": "c",
-          "en": "No, I was not can.",
-          "es": "No, I was not can."
-        },
-        {
-          "id": "d",
-          "en": "Open is gate maybe.",
-          "es": "Open is gate maybe."
-        }
-      ],
-      "correctOptionId": "a",
-      "hints": [
-        {
-          "en": "Answer politely to a request with modal 'could'.",
-          "es": "Responde de forma educada a una solicitud con el modal 'could'."
-        }
-      ]
-    },
-    {
-      "id": "scene-6",
-      "image": "images/img_scene_6_observatory.png",
-      "title": {
-        "en": "Scene 6: Observatory Deck",
-        "es": "Escena 6: Plataforma del Observatorio"
-      },
-      "description": {
-        "en": "Star coordinates unlock the penultimate shield.",
-        "es": "Coordenadas estelares desbloquean el penultimo escudo."
-      },
-      "objective": {
-        "en": "Find the sentence with correct comparative form.",
-        "es": "Encuentra la oracion con forma comparativa correcta."
-      },
-      "question": {
-        "en": "Choose the correct comparative sentence.",
-        "es": "Elige la oracion comparativa correcta."
-      },
-      "options": [
-        {
-          "id": "a",
-          "en": "This route is more safer than that one.",
-          "es": "This route is more safer than that one."
-        },
-        {
-          "id": "b",
-          "en": "This route is safer than that one.",
-          "es": "This route is safer than that one."
-        },
-        {
-          "id": "c",
-          "en": "This route is safest than that one.",
-          "es": "This route is safest than that one."
-        },
-        {
-          "id": "d",
-          "en": "This route safer that one.",
-          "es": "This route safer that one."
-        }
-      ],
-      "correctOptionId": "b",
-      "hints": [
-        {
-          "en": "Do not combine 'more' with -er for short adjectives.",
-          "es": "No combines 'more' con -er en adjetivos cortos."
-        }
-      ]
-    },
-    {
-      "id": "scene-7",
-      "image": "images/img_scene_7_clock_tunnel.png",
-      "title": {
-        "en": "Scene 7: Clock Tunnel",
-        "es": "Escena 7: Tunel del Reloj"
-      },
-      "description": {
-        "en": "The tunnel loops every 30 seconds unless you decode the signal.",
-        "es": "El tunel se repite cada 30 segundos a menos que decodifiques la senal."
-      },
-      "objective": {
-        "en": "Search the tunnel for a clue and solve the phrasal verb challenge.",
-        "es": "Busca una pista en el tunel y resuelve el desafio de phrasal verbs."
-      },
-      "question": {
-        "en": "Choose the best option: 'We need to ____ the alarm before it rings again.'",
-        "es": "Elige la mejor opcion: 'We need to ____ the alarm before it rings again.'"
-      },
-      "requiresSearch": true,
-      "searchClue": {
-        "en": "A wall inscription says: 'The correct phrasal verb means deactivate.'",
-        "es": "Una inscripcion en la pared dice: 'El phrasal verb correcto significa desactivar'."
-      },
-      "options": [
-        {
-          "id": "a",
-          "en": "turn off",
-          "es": "turn off"
-        },
-        {
-          "id": "b",
-          "en": "turn on",
-          "es": "turn on"
-        },
-        {
-          "id": "c",
-          "en": "look after",
-          "es": "look after"
-        },
-        {
-          "id": "d",
-          "en": "give up",
-          "es": "give up"
-        }
-      ],
-      "correctOptionId": "a",
-      "hints": [
-        {
-          "en": "The opposite of activate.",
-          "es": "Lo opuesto de activar."
-        }
-      ]
-    },
-    {
-      "id": "scene-8",
-      "image": "images/img_scene_8_core_gate.png",
-      "title": {
-        "en": "Scene 8: Time Core Gate",
-        "es": "Escena 8: Portal del Nucleo del Tiempo"
-      },
-      "description": {
-        "en": "Final lock: one logic sentence stands between the team and freedom.",
-        "es": "Bloqueo final: una oracion logica separa al equipo de la libertad."
-      },
-      "objective": {
-        "en": "Select the sentence with correct word order.",
-        "es": "Selecciona la oracion con orden correcto de palabras."
-      },
-      "question": {
-        "en": "Choose the correct sentence.",
-        "es": "Elige la oracion correcta."
-      },
-      "options": [
-        {
-          "id": "a",
-          "en": "Always we check the clues carefully.",
-          "es": "Always we check the clues carefully."
-        },
-        {
-          "id": "b",
-          "en": "We always check the clues carefully.",
-          "es": "We always check the clues carefully."
-        },
-        {
-          "id": "c",
-          "en": "We check always carefully the clues.",
-          "es": "We check always carefully the clues."
-        },
-        {
-          "id": "d",
-          "en": "Check we always the clues carefully.",
-          "es": "Check we always the clues carefully."
-        }
-      ],
-      "correctOptionId": "b",
-      "hints": [
-        {
-          "en": "Adverb of frequency usually goes before the main verb.",
-          "es": "El adverbio de frecuencia suele ir antes del verbo principal."
-        }
-      ]
-    }
-  ]
+﻿{
+    "meta":  {
+                 "title":  {
+                               "en":  "Chrono Academy Escape",
+                               "es":  "Escape de la Academia Chrono"
+                           },
+                 "subtitle":  {
+                                  "en":  "Recover the Time Core before the school collapses into a time loop.",
+                                  "es":  "Recupera el Nucleo del Tiempo antes de que la escuela colapse en un bucle temporal."
+                              },
+                 "footer":  {
+                                "en":  "Teacher mode: project this screen and guide team discussion.",
+                                "es":  "Modo profesor: proyecta esta pantalla y guia la discusion del equipo."
+                            },
+                 "teamSize":  6
+             },
+    "ui":  {
+               "langToggle":  {
+                                  "en":  "Ver en Espanol",
+                                  "es":  "View in English"
+                              },
+               "setupTitle":  {
+                                  "en":  "Create Your Team",
+                                  "es":  "Crea tu equipo"
+                              },
+               "setupDescription":  {
+                                        "en":  "Enter the names of all participants. Turns will rotate automatically.",
+                                        "es":  "Ingresa los nombres de todos los participantes. Los turnos rotaran automaticamente."
+                                    },
+               "setupIntroTitle":  {
+                                       "en":  "Step 1: Story Prelude",
+                                       "es":  "Paso 1: Preludio de la historia"
+                                   },
+               "participantCountLabel":  {
+                                             "en":  "Number of participants",
+                                             "es":  "Cantidad de participantes"
+                                         },
+               "turnModeLabel":  {
+                                     "en":  "Turn selection mode",
+                                     "es":  "Modo de seleccion de turnos"
+                                 },
+               "turnModeOrdered":  {
+                                       "en":  "Ordered (input order)",
+                                       "es":  "Ordenado (orden de ingreso)"
+                                   },
+               "turnModeRandom":  {
+                                      "en":  "Random (balanced)",
+                                      "es":  "Aleatorio (balanceado)"
+                                  },
+               "playerPlaceholder":  {
+                                         "en":  "Participant",
+                                         "es":  "Participante"
+                                     },
+               "startGame":  {
+                                 "en":  "Start Escape",
+                                 "es":  "Iniciar escape"
+                             },
+               "setupError":  {
+                                  "en":  "Please complete all participant names.",
+                                  "es":  "Completa todos los nombres de participantes."
+                              },
+               "roundLabel":  {
+                                  "en":  "Round",
+                                  "es":  "Ronda"
+                              },
+               "turnLabel":  {
+                                 "en":  "Current Responder",
+                                 "es":  "Participante actual"
+                             },
+               "scoreboardLabel":  {
+                                       "en":  "Team Progress",
+                                       "es":  "Progreso del equipo"
+                                   },
+               "scoreLine":  {
+                                 "en":  "solved",
+                                 "es":  "resueltos"
+                             },
+               "objectiveLabel":  {
+                                      "en":  "Mission",
+                                      "es":  "Mision"
+                                  },
+               "puzzleLabel":  {
+                                   "en":  "Challenge",
+                                   "es":  "Desafio"
+                               },
+               "search":  {
+                              "en":  "Search for Clue",
+                              "es":  "Buscar pista"
+                          },
+               "hint":  {
+                            "en":  "Show Hint",
+                            "es":  "Mostrar pista"
+                        },
+               "nextHint":  {
+                                "en":  "Next Hint",
+                                "es":  "Siguiente pista"
+                            },
+               "submit":  {
+                              "en":  "Submit Choice",
+                              "es":  "Enviar opcion"
+                          },
+               "chooseOption":  {
+                                    "en":  "Select one option first.",
+                                    "es":  "Selecciona una opcion primero."
+                                },
+               "searchFirst":  {
+                                   "en":  "Search the room first. You still need the hidden clue.",
+                                   "es":  "Primero explora la sala. Aun necesitas la pista oculta."
+                               },
+               "correct":  {
+                               "en":  "Correct. The team advances.",
+                               "es":  "Correcto. El equipo avanza."
+                           },
+               "incorrect":  {
+                                 "en":  "Incorrect. Turn passes to the next participant.",
+                                 "es":  "Incorrecto. El turno pasa al siguiente participante."
+                             },
+               "completed":  {
+                                 "en":  "Escape successful!",
+                                 "es":  "Escape exitoso"
+                             },
+               "completedDescription":  {
+                                            "en":  "The Time Core is stable. Your team saved Chrono Academy.",
+                                            "es":  "El Nucleo del Tiempo esta estable. Tu equipo salvo la Academia Chrono."
+                                        },
+               "bonusTag":  {
+                                "en":  "Bonus",
+                                "es":  "Extra"
+                            },
+               "setupIntroNext":  {
+                                      "en":  "Next line",
+                                      "es":  "Siguiente linea"
+                                  },
+               "setupIntroRestart":  {
+                                         "en":  "Read again",
+                                         "es":  "Leer otra vez"
+                                     },
+               "sceneBridgeLabel":  {
+                                        "en":  "Scene Prelude",
+                                        "es":  "Preludio de escena"
+                                    },
+               "sceneBridgeNext":  {
+                                       "en":  "Continue story",
+                                       "es":  "Continuar historia"
+                                   },
+               "sceneBridgeUnlock":  {
+                                         "en":  "Start challenge",
+                                         "es":  "Iniciar desafio"
+                                     },
+               "readBridgeFirst":  {
+                                       "en":  "Read the scene prelude first to unlock this challenge.",
+                                       "es":  "Lee primero el preludio de la escena para desbloquear este desafio."
+                                   },
+               "setupIntroLines":  [
+                                       {
+                                           "en":  "A group of adventurous students stayed after class to organize the old Chrono Academy archive. Suddenly, the lights flickered, alarms echoed, and every exit sealed shut.",
+                                           "es":  "Un grupo de estudiantes aventureros se quedo despues de clases para organizar el antiguo archivo de la Academia Chrono. De pronto, las luces parpadearon, sonaron alarmas y todas las salidas se sellaron."
+                                       },
+                                       {
+                                           "en":  "A hidden system announced that the Time Core had fractured into scattered fragments. If the fragments are not recovered, the school will repeat the same hour forever.",
+                                           "es":  "Un sistema oculto anuncio que el Nucleo del Tiempo se habia fracturado en fragmentos dispersos. Si no se recuperan, la escuela repetira la misma hora para siempre."
+                                       },
+                                       {
+                                           "en":  "Your team must explore each room, decode clues, and solve language challenges. Every participant will lead at key moments. Focus, collaborate, and begin the escape.",
+                                           "es":  "Tu equipo debe explorar cada sala, decodificar pistas y resolver desafios de lenguaje. Cada participante liderara en momentos clave. Enfoquense, colaboren y comiencen el escape."
+                                       }
+                                   ]
+           },
+    "scenes":  [
+                   {
+                       "id":  "scene-1",
+                       "image":  "images/img_scene_1_archive_hall.png",
+                       "title":  {
+                                     "en":  "Scene 1: Archive Hall",
+                                     "es":  "Escena 1: Sala de Archivos"
+                                 },
+                       "description":  {
+                                           "en":  "A locked cabinet guards the first fragment of the Time Core.",
+                                           "es":  "Un gabinete cerrado protege el primer fragmento del Nucleo del Tiempo."
+                                       },
+                       "objective":  {
+                                         "en":  "Choose the correct tense to unlock the cabinet.",
+                                         "es":  "Elige el tiempo verbal correcto para abrir el gabinete."
+                                     },
+                       "question":  {
+                                        "en":  "Yesterday, the principal ____ the emergency protocol.",
+                                        "es":  "Ayer, el director ____ el protocolo de emergencia."
+                                    },
+                       "options":  [
+                                       {
+                                           "id":  "a",
+                                           "en":  "activate",
+                                           "es":  "activate"
+                                       },
+                                       {
+                                           "id":  "b",
+                                           "en":  "activated",
+                                           "es":  "activated"
+                                       },
+                                       {
+                                           "id":  "c",
+                                           "en":  "activates",
+                                           "es":  "activates"
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "is activating",
+                                           "es":  "is activating"
+                                       }
+                                   ],
+                       "correctOptionId":  "b",
+                       "hints":  [
+                                     {
+                                         "en":  "Look at the time marker: yesterday.",
+                                         "es":  "Observa el marcador temporal: ayer."
+                                     },
+                                     {
+                                         "en":  "Use simple past.",
+                                         "es":  "Usa pasado simple."
+                                     }
+                                 ],
+                       "bridgeLines":  [
+                                           {
+                                               "en":  "The team enters the Archive Hall, where ticking clocks sound louder than usual.",
+                                               "es":  "El equipo entra a la Sala de Archivos, donde los relojes suenan mas fuerte de lo normal."
+                                           },
+                                           {
+                                               "en":  "A locked cabinet vibrates softly. The first fragment is close, but grammar is the key.",
+                                               "es":  "Un gabinete cerrado vibra suavemente. El primer fragmento esta cerca, pero la gramatica es la llave."
+                                           }
+                                       ]
+                   },
+                   {
+                       "id":  "scene-2",
+                       "image":  "images/img_scene_2_map_room.png",
+                       "title":  {
+                                     "en":  "Scene 2: Map Room",
+                                     "es":  "Escena 2: Sala de Mapas"
+                                 },
+                       "description":  {
+                                           "en":  "A projection map shows four routes, but only one reaches the reactor safely.",
+                                           "es":  "Un mapa proyectado muestra cuatro rutas, pero solo una llega al reactor con seguridad."
+                                       },
+                       "objective":  {
+                                         "en":  "Pick the best synonym to decode route instructions.",
+                                         "es":  "Elige el mejor sinonimo para decodificar las instrucciones de ruta."
+                                     },
+                       "question":  {
+                                        "en":  "Choose the best synonym for \u0027dangerous\u0027 in this context.",
+                                        "es":  "Elige el mejor sinonimo de \u0027dangerous\u0027 en este contexto."
+                                    },
+                       "options":  [
+                                       {
+                                           "id":  "a",
+                                           "en":  "safe",
+                                           "es":  "seguro"
+                                       },
+                                       {
+                                           "id":  "b",
+                                           "en":  "risky",
+                                           "es":  "arriesgado"
+                                       },
+                                       {
+                                           "id":  "c",
+                                           "en":  "calm",
+                                           "es":  "calmado"
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "silent",
+                                           "es":  "silencioso"
+                                       }
+                                   ],
+                       "correctOptionId":  "b",
+                       "hints":  [
+                                     {
+                                         "en":  "It describes a situation with possible harm.",
+                                         "es":  "Describe una situacion con posible dano."
+                                     },
+                                     {
+                                         "en":  "Starts with R.",
+                                         "es":  "Comienza con R."
+                                     }
+                                 ],
+                       "bridgeLines":  [
+                                           {
+                                               "en":  "After unlocking the cabinet, a holographic map room lights up and redraws itself.",
+                                               "es":  "Tras abrir el gabinete, una sala de mapas holograficos se enciende y se redibuja sola."
+                                           },
+                                           {
+                                               "en":  "Only one route is stable. The wrong interpretation could trap the team in the loop.",
+                                               "es":  "Solo una ruta es estable. Una interpretacion incorrecta podria atrapar al equipo en el bucle."
+                                           }
+                                       ]
+                   },
+                   {
+                       "id":  "scene-3",
+                       "image":  "images/img_scene_3_chem_lab.png",
+                       "title":  {
+                                     "en":  "Scene 3: Chemistry Lab",
+                                     "es":  "Escena 3: Laboratorio de Quimica"
+                                 },
+                       "description":  {
+                                           "en":  "A coded vial is hidden in a cabinet with a biometric lock.",
+                                           "es":  "Un vial codificado esta escondido en un gabinete con bloqueo biometrico."
+                                       },
+                       "objective":  {
+                                         "en":  "Search the lab first, then solve the clue question.",
+                                         "es":  "Primero investiga el laboratorio y luego resuelve la pregunta de la pista."
+                                     },
+                       "question":  {
+                                        "en":  "After searching, identify the correct sentence in passive voice.",
+                                        "es":  "Despues de buscar, identifica la oracion correcta en voz pasiva."
+                                    },
+                       "requiresSearch":  true,
+                       "searchClue":  {
+                                          "en":  "You find a note: \u0027The formula is protected by passive structure.\u0027",
+                                          "es":  "Encuentras una nota: \u0027La formula esta protegida por estructura pasiva\u0027."
+                                      },
+                       "options":  [
+                                       {
+                                           "id":  "a",
+                                           "en":  "The scientist mixed the sample.",
+                                           "es":  "The scientist mixed the sample."
+                                       },
+                                       {
+                                           "id":  "b",
+                                           "en":  "The sample was mixed by the scientist.",
+                                           "es":  "The sample was mixed by the scientist."
+                                       },
+                                       {
+                                           "id":  "c",
+                                           "en":  "The scientist is mixing the sample.",
+                                           "es":  "The scientist is mixing the sample."
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "The sample mixes quickly.",
+                                           "es":  "The sample mixes quickly."
+                                       }
+                                   ],
+                       "correctOptionId":  "b",
+                       "hints":  [
+                                     {
+                                         "en":  "Passive voice usually uses \u0027be\u0027 + past participle.",
+                                         "es":  "La voz pasiva suele usar \u0027be\u0027 + participio pasado."
+                                     },
+                                     {
+                                         "en":  "Look for \u0027was\u0027.",
+                                         "es":  "Busca \u0027was\u0027."
+                                     }
+                                 ],
+                       "bridgeLines":  [
+                                           {
+                                               "en":  "The map leads to the Chemistry Lab, where coded vials glow behind reinforced glass.",
+                                               "es":  "El mapa conduce al Laboratorio de Quimica, donde viales codificados brillan tras vidrio reforzado."
+                                           },
+                                           {
+                                               "en":  "A hidden note is required before answering. Observation matters as much as language.",
+                                               "es":  "Se necesita una nota oculta antes de responder. La observacion importa tanto como el lenguaje."
+                                           }
+                                       ]
+                   },
+                   {
+                       "id":  "scene-4",
+                       "image":  "images/img_scene_4_server_room.png",
+                       "title":  {
+                                     "en":  "Scene 4: Server Room",
+                                     "es":  "Escena 4: Sala de Servidores"
+                                 },
+                       "description":  {
+                                           "en":  "The AI guardian asks a conditional question before granting access.",
+                                           "es":  "El guardian IA hace una pregunta condicional antes de dar acceso."
+                                       },
+                       "objective":  {
+                                         "en":  "Select the correct first conditional sentence.",
+                                         "es":  "Selecciona la oracion correcta de primer condicional."
+                                     },
+                       "question":  {
+                                        "en":  "Choose the grammatically correct first conditional sentence.",
+                                        "es":  "Elige la oracion gramaticalmente correcta de primer condicional."
+                                    },
+                       "options":  [
+                                       {
+                                           "id":  "a",
+                                           "en":  "If we will hurry, we escape.",
+                                           "es":  "If we will hurry, we escape."
+                                       },
+                                       {
+                                           "id":  "b",
+                                           "en":  "If we hurry, we will escape.",
+                                           "es":  "If we hurry, we will escape."
+                                       },
+                                       {
+                                           "id":  "c",
+                                           "en":  "If we hurried, we will escape.",
+                                           "es":  "If we hurried, we will escape."
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "If we hurry, we escaped.",
+                                           "es":  "If we hurry, we escaped."
+                                       }
+                                   ],
+                       "correctOptionId":  "b",
+                       "hints":  [
+                                     {
+                                         "en":  "First conditional: If + present, will + base verb.",
+                                         "es":  "Primer condicional: If + presente, will + verbo base."
+                                     }
+                                 ],
+                       "bridgeLines":  [
+                                           {
+                                               "en":  "With another fragment secured, the team descends into the Server Room.",
+                                               "es":  "Con otro fragmento asegurado, el equipo desciende a la Sala de Servidores."
+                                           },
+                                           {
+                                               "en":  "An AI guardian blocks access and only accepts precise conditional logic.",
+                                               "es":  "Un guardian de IA bloquea el acceso y solo acepta logica condicional precisa."
+                                           }
+                                       ]
+                   },
+                   {
+                       "id":  "scene-5",
+                       "image":  "images/img_scene_5_hologram_chamber.png",
+                       "title":  {
+                                     "en":  "Scene 5: Hologram Chamber",
+                                     "es":  "Escena 5: Camara Holografica"
+                                 },
+                       "description":  {
+                                           "en":  "A hologram displays a dialogue with one missing response.",
+                                           "es":  "Un holograma muestra un dialogo con una respuesta faltante."
+                                       },
+                       "objective":  {
+                                         "en":  "Pick the option that best completes the conversation.",
+                                         "es":  "Elige la opcion que mejor completa la conversacion."
+                                     },
+                       "question":  {
+                                        "en":  "A: \u0027Could you open the emergency gate?\u0027 B: \u0027____\u0027",
+                                        "es":  "A: \u0027Could you open the emergency gate?\u0027 B: \u0027____\u0027"
+                                    },
+                       "options":  [
+                                       {
+                                           "id":  "a",
+                                           "en":  "Yes, I can do that right now.",
+                                           "es":  "Si, puedo hacerlo ahora mismo."
+                                       },
+                                       {
+                                           "id":  "b",
+                                           "en":  "I am opening yesterday.",
+                                           "es":  "I am opening yesterday."
+                                       },
+                                       {
+                                           "id":  "c",
+                                           "en":  "No, I was not can.",
+                                           "es":  "No, I was not can."
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "Open is gate maybe.",
+                                           "es":  "Open is gate maybe."
+                                       }
+                                   ],
+                       "correctOptionId":  "a",
+                       "hints":  [
+                                     {
+                                         "en":  "Answer politely to a request with modal \u0027could\u0027.",
+                                         "es":  "Responde de forma educada a una solicitud con el modal \u0027could\u0027."
+                                     }
+                                 ],
+                       "bridgeLines":  [
+                                           {
+                                               "en":  "The AI opens a passage into the Hologram Chamber, where voices echo from nowhere.",
+                                               "es":  "La IA abre un pasaje a la Camara Holografica, donde voces resuenan desde ninguna parte."
+                                           },
+                                           {
+                                               "en":  "A broken dialogue hangs in the air. Completing it correctly restores the channel.",
+                                               "es":  "Un dialogo incompleto flota en el aire. Completarlo correctamente restaura el canal."
+                                           }
+                                       ]
+                   },
+                   {
+                       "id":  "scene-6",
+                       "image":  "images/img_scene_6_observatory.png",
+                       "title":  {
+                                     "en":  "Scene 6: Observatory Deck",
+                                     "es":  "Escena 6: Plataforma del Observatorio"
+                                 },
+                       "description":  {
+                                           "en":  "Star coordinates unlock the penultimate shield.",
+                                           "es":  "Coordenadas estelares desbloquean el penultimo escudo."
+                                       },
+                       "objective":  {
+                                         "en":  "Find the sentence with correct comparative form.",
+                                         "es":  "Encuentra la oracion con forma comparativa correcta."
+                                     },
+                       "question":  {
+                                        "en":  "Choose the correct comparative sentence.",
+                                        "es":  "Elige la oracion comparativa correcta."
+                                    },
+                       "options":  [
+                                       {
+                                           "id":  "a",
+                                           "en":  "This route is more safer than that one.",
+                                           "es":  "This route is more safer than that one."
+                                       },
+                                       {
+                                           "id":  "b",
+                                           "en":  "This route is safer than that one.",
+                                           "es":  "This route is safer than that one."
+                                       },
+                                       {
+                                           "id":  "c",
+                                           "en":  "This route is safest than that one.",
+                                           "es":  "This route is safest than that one."
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "This route safer that one.",
+                                           "es":  "This route safer that one."
+                                       }
+                                   ],
+                       "correctOptionId":  "b",
+                       "hints":  [
+                                     {
+                                         "en":  "Do not combine \u0027more\u0027 with -er for short adjectives.",
+                                         "es":  "No combines \u0027more\u0027 con -er en adjetivos cortos."
+                                     }
+                                 ],
+                       "bridgeLines":  [
+                                           {
+                                               "en":  "Beyond the chamber, the Observatory reveals shifting constellations and rotating rings.",
+                                               "es":  "Mas alla de la camara, el Observatorio revela constelaciones cambiantes y anillos giratorios."
+                                           },
+                                           {
+                                               "en":  "One linguistic comparison aligns the stars and reveals the next access code.",
+                                               "es":  "Una comparacion linguistica alineara las estrellas y revelara el siguiente codigo de acceso."
+                                           }
+                                       ]
+                   },
+                   {
+                       "id":  "scene-7",
+                       "image":  "images/img_scene_7_clock_tunnel.png",
+                       "title":  {
+                                     "en":  "Scene 7: Clock Tunnel",
+                                     "es":  "Escena 7: Tunel del Reloj"
+                                 },
+                       "description":  {
+                                           "en":  "The tunnel loops every 30 seconds unless you decode the signal.",
+                                           "es":  "El tunel se repite cada 30 segundos a menos que decodifiques la senal."
+                                       },
+                       "objective":  {
+                                         "en":  "Search the tunnel for a clue and solve the phrasal verb challenge.",
+                                         "es":  "Busca una pista en el tunel y resuelve el desafio de phrasal verbs."
+                                     },
+                       "question":  {
+                                        "en":  "Choose the best option: \u0027We need to ____ the alarm before it rings again.\u0027",
+                                        "es":  "Elige la mejor opcion: \u0027We need to ____ the alarm before it rings again.\u0027"
+                                    },
+                       "requiresSearch":  true,
+                       "searchClue":  {
+                                          "en":  "A wall inscription says: \u0027The correct phrasal verb means deactivate.\u0027",
+                                          "es":  "Una inscripcion en la pared dice: \u0027El phrasal verb correcto significa desactivar\u0027."
+                                      },
+                       "options":  [
+                                       {
+                                           "id":  "a",
+                                           "en":  "turn off",
+                                           "es":  "turn off"
+                                       },
+                                       {
+                                           "id":  "b",
+                                           "en":  "turn on",
+                                           "es":  "turn on"
+                                       },
+                                       {
+                                           "id":  "c",
+                                           "en":  "look after",
+                                           "es":  "look after"
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "give up",
+                                           "es":  "give up"
+                                       }
+                                   ],
+                       "correctOptionId":  "a",
+                       "hints":  [
+                                     {
+                                         "en":  "The opposite of activate.",
+                                         "es":  "Lo opuesto de activar."
+                                     }
+                                 ],
+                       "bridgeLines":  [
+                                           {
+                                               "en":  "The code unlocks a Clock Tunnel that resets every few seconds.",
+                                               "es":  "El codigo desbloquea un Tunel del Reloj que se reinicia cada pocos segundos."
+                                           },
+                                           {
+                                               "en":  "To stop the loop, the team must find the clue and deactivate the alarm phrase.",
+                                               "es":  "Para detener el bucle, el equipo debe encontrar la pista y desactivar la frase de alarma."
+                                           }
+                                       ]
+                   },
+                   {
+                       "id":  "scene-8",
+                       "image":  "images/img_scene_8_core_gate.png",
+                       "title":  {
+                                     "en":  "Scene 8: Time Core Gate",
+                                     "es":  "Escena 8: Portal del Nucleo del Tiempo"
+                                 },
+                       "description":  {
+                                           "en":  "Final lock: one logic sentence stands between the team and freedom.",
+                                           "es":  "Bloqueo final: una oracion logica separa al equipo de la libertad."
+                                       },
+                       "objective":  {
+                                         "en":  "Select the sentence with correct word order.",
+                                         "es":  "Selecciona la oracion con orden correcto de palabras."
+                                     },
+                       "question":  {
+                                        "en":  "Choose the correct sentence.",
+                                        "es":  "Elige la oracion correcta."
+                                    },
+                       "options":  [
+                                       {
+                                           "id":  "a",
+                                           "en":  "Always we check the clues carefully.",
+                                           "es":  "Always we check the clues carefully."
+                                       },
+                                       {
+                                           "id":  "b",
+                                           "en":  "We always check the clues carefully.",
+                                           "es":  "We always check the clues carefully."
+                                       },
+                                       {
+                                           "id":  "c",
+                                           "en":  "We check always carefully the clues.",
+                                           "es":  "We check always carefully the clues."
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "Check we always the clues carefully.",
+                                           "es":  "Check we always the clues carefully."
+                                       }
+                                   ],
+                       "correctOptionId":  "b",
+                       "hints":  [
+                                     {
+                                         "en":  "Adverb of frequency usually goes before the main verb.",
+                                         "es":  "El adverbio de frecuencia suele ir antes del verbo principal."
+                                     }
+                                 ],
+                       "bridgeLines":  [
+                                           {
+                                               "en":  "At last, the team stands before the Time Core Gate, glowing with unstable energy.",
+                                               "es":  "Por fin, el equipo se encuentra ante el Portal del Nucleo del Tiempo, brillando con energia inestable."
+                                           },
+                                           {
+                                               "en":  "One final sentence will decide everything: freedom or another endless hour.",
+                                               "es":  "Una ultima oracion lo decide todo: libertad u otra hora interminable."
+                                           }
+                                       ]
+                   }
+               ]
 }
-

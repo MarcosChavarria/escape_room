@@ -12,6 +12,9 @@ const state = {
   turnMode: "ordered",
   hintIndex: 0,
   searchUnlocked: false,
+  setupIntroIndex: 0,
+  sceneBridgeIndex: 0,
+  sceneBridgeUnlocked: false,
 };
 
 const els = {
@@ -23,6 +26,9 @@ const els = {
   setupScreen: document.getElementById("setup-screen"),
   setupTitle: document.getElementById("setup-title"),
   setupDescription: document.getElementById("setup-description"),
+  setupIntroTitle: document.getElementById("setup-intro-title"),
+  setupIntroText: document.getElementById("setup-intro-text"),
+  setupIntroNext: document.getElementById("setup-intro-next"),
   participantsGrid: document.getElementById("participants-grid"),
   participantCountLabel: document.getElementById("participant-count-label"),
   participantCountInput: document.getElementById("participant-count"),
@@ -43,6 +49,9 @@ const els = {
 
   sceneTitle: document.getElementById("scene-title"),
   sceneDescription: document.getElementById("scene-description"),
+  sceneBridgeLabel: document.getElementById("scene-bridge-label"),
+  sceneBridgeText: document.getElementById("scene-bridge-text"),
+  sceneBridgeNext: document.getElementById("scene-bridge-next"),
   sceneImage: document.getElementById("scene-image"),
   objectiveLabel: document.getElementById("objective-label"),
   objectiveText: document.getElementById("objective-text"),
@@ -123,6 +132,58 @@ function renderScoreboard() {
   });
 }
 
+function setPuzzleControlsEnabled(enabled) {
+  const controls = [els.searchButton, els.hintButton, els.submitAnswer];
+  controls.forEach((control) => {
+    if (control) {
+      control.disabled = !enabled;
+    }
+  });
+
+  const options = document.querySelectorAll('input[name="answer-option"]');
+  options.forEach((option) => {
+    option.disabled = !enabled;
+  });
+}
+
+function renderSetupIntro() {
+  const ui = state.story.ui;
+  const lines = ui.setupIntroLines ?? [];
+
+  if (lines.length === 0) {
+    els.setupIntroText.textContent = "";
+    els.setupIntroNext.style.display = "none";
+    return;
+  }
+
+  const index = Math.min(state.setupIntroIndex, lines.length - 1);
+  els.setupIntroText.textContent = t(lines[index]);
+  els.setupIntroNext.style.display = "inline-block";
+  els.setupIntroNext.textContent = index < lines.length - 1 ? t(ui.setupIntroNext) : t(ui.setupIntroRestart);
+}
+
+function renderSceneBridge(scene) {
+  const ui = state.story.ui;
+  const lines = scene.bridgeLines ?? [];
+  els.sceneBridgeLabel.textContent = t(ui.sceneBridgeLabel);
+
+  if (lines.length === 0) {
+    state.sceneBridgeUnlocked = true;
+    els.sceneBridgeText.textContent = "";
+    els.sceneBridgeNext.style.display = "none";
+    return;
+  }
+
+  const index = Math.min(state.sceneBridgeIndex, lines.length - 1);
+  els.sceneBridgeText.textContent = t(lines[index]);
+  if (state.sceneBridgeUnlocked) {
+    els.sceneBridgeNext.style.display = "none";
+    return;
+  }
+  els.sceneBridgeNext.style.display = "inline-block";
+  els.sceneBridgeNext.textContent = index < lines.length - 1 ? t(ui.sceneBridgeNext) : t(ui.sceneBridgeUnlock);
+}
+
 function renderOptions(scene) {
   els.optionsField.innerHTML = "";
 
@@ -157,6 +218,8 @@ function renderCompleted() {
   els.submitAnswer.style.display = "none";
   els.searchText.textContent = "";
   els.hintText.textContent = "";
+  els.sceneBridgeText.textContent = "";
+  els.sceneBridgeNext.style.display = "none";
   clearFeedback();
 
   els.roundValue.textContent = `${state.activeScenes.length} / ${state.activeScenes.length}`;
@@ -203,6 +266,7 @@ function renderGame() {
 
   els.sceneTitle.textContent = t(scene.title);
   els.sceneDescription.textContent = t(scene.description);
+  renderSceneBridge(scene);
   els.objectiveText.textContent = t(scene.objective);
   els.puzzleQuestion.textContent = t(scene.question);
 
@@ -220,6 +284,14 @@ function renderGame() {
   els.searchText.textContent = state.searchUnlocked && scene.searchClue ? t(scene.searchClue) : "";
 
   els.hintText.textContent = "";
+
+  if (!state.sceneBridgeUnlocked) {
+    setPuzzleControlsEnabled(false);
+    clearFeedback();
+    els.feedbackText.textContent = t(ui.readBridgeFirst);
+  } else {
+    setPuzzleControlsEnabled(true);
+  }
 }
 
 function advanceTurn() {
@@ -233,6 +305,8 @@ function nextScene() {
   state.sceneIndex += 1;
   state.hintIndex = 0;
   state.searchUnlocked = false;
+  state.sceneBridgeIndex = 0;
+  state.sceneBridgeUnlocked = false;
   els.searchText.textContent = "";
   els.hintText.textContent = "";
   clearFeedback();
@@ -272,6 +346,12 @@ function selectedOptionId() {
 function handleAnswer() {
   const scene = currentScene();
   if (!scene) {
+    return;
+  }
+
+  if (!state.sceneBridgeUnlocked) {
+    clearFeedback();
+    els.feedbackText.textContent = t(state.story.ui.readBridgeFirst);
     return;
   }
 
@@ -332,6 +412,8 @@ function setupGame() {
   state.turnPointer = 0;
   state.hintIndex = 0;
   state.searchUnlocked = false;
+  state.sceneBridgeIndex = 0;
+  state.sceneBridgeUnlocked = false;
 
   els.setupError.textContent = "";
   els.setupScreen.classList.add("hidden");
@@ -350,6 +432,8 @@ function renderSetup() {
 
   els.setupTitle.textContent = t(ui.setupTitle);
   els.setupDescription.textContent = t(ui.setupDescription);
+  els.setupIntroTitle.textContent = t(ui.setupIntroTitle);
+  renderSetupIntro();
   els.participantCountLabel.textContent = t(ui.participantCountLabel);
   els.turnModeLabel.textContent = t(ui.turnModeLabel);
   els.turnModeOrdered.textContent = t(ui.turnModeOrdered);
@@ -438,6 +522,36 @@ function bindEvents() {
   });
 
   els.startGame.addEventListener("click", setupGame);
+  els.setupIntroNext.addEventListener("click", () => {
+    const lines = state.story.ui.setupIntroLines ?? [];
+    if (lines.length === 0) {
+      return;
+    }
+    if (state.setupIntroIndex < lines.length - 1) {
+      state.setupIntroIndex += 1;
+    } else {
+      state.setupIntroIndex = 0;
+    }
+    renderSetupIntro();
+  });
+  els.sceneBridgeNext.addEventListener("click", () => {
+    const scene = currentScene();
+    if (!scene) {
+      return;
+    }
+    const lines = scene.bridgeLines ?? [];
+    if (lines.length === 0) {
+      state.sceneBridgeUnlocked = true;
+      renderGame();
+      return;
+    }
+    if (state.sceneBridgeIndex < lines.length - 1) {
+      state.sceneBridgeIndex += 1;
+    } else {
+      state.sceneBridgeUnlocked = true;
+    }
+    renderGame();
+  });
   els.participantCountInput.addEventListener("change", renderParticipantInputs);
   els.submitAnswer.addEventListener("click", handleAnswer);
   els.hintButton.addEventListener("click", showHint);
