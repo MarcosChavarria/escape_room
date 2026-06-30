@@ -322,7 +322,7 @@ function renderCompleted() {
 
   els.roundValue.textContent = `${state.activeScenes.length} / ${state.activeScenes.length}`;
   els.turnValue.textContent = "-";
-  els.gameScreen.classList.remove("bridge-focus");
+  els.gameScreen.classList.add("bridge-focus", "ending-focus");
 
   els.gameScreen.style.backgroundImage = `url("images/img_scene_9_victory.png")`;
   playSfx("scene");
@@ -332,6 +332,7 @@ function renderGame() {
   const story = state.story;
   const ui = story.ui;
   const scene = currentScene();
+  els.gameScreen.classList.remove("ending-focus");
 
   els.title.textContent = t(story.meta.title);
   els.subtitle.textContent = t(story.meta.subtitle);

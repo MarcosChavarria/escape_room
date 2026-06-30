@@ -273,13 +273,13 @@
                                        },
                                        {
                                            "id":  "b",
-                                           "en":  "risky",
-                                           "es":  "arriesgado"
+                                           "en":  "calm",
+                                           "es":  "calmado"
                                        },
                                        {
                                            "id":  "c",
-                                           "en":  "calm",
-                                           "es":  "calmado"
+                                           "en":  "risky",
+                                           "es":  "arriesgado"
                                        },
                                        {
                                            "id":  "d",
@@ -287,7 +287,7 @@
                                            "es":  "silencioso"
                                        }
                                    ],
-                       "correctOptionId":  "b",
+                       "correctOptionId":  "c",
                        "hints":  [
                                      {
                                          "en":  "It describes a situation with possible harm.",
@@ -341,21 +341,21 @@
                                        },
                                        {
                                            "id":  "b",
-                                           "en":  "The sample was mixed by the scientist.",
-                                           "es":  "The sample was mixed by the scientist."
-                                       },
-                                       {
-                                           "id":  "c",
                                            "en":  "The scientist is mixing the sample.",
                                            "es":  "The scientist is mixing the sample."
                                        },
                                        {
-                                           "id":  "d",
+                                           "id":  "c",
                                            "en":  "The sample mixes quickly.",
                                            "es":  "The sample mixes quickly."
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "The sample was mixed by the scientist.",
+                                           "es":  "The sample was mixed by the scientist."
                                        }
                                    ],
-                       "correctOptionId":  "b",
+                       "correctOptionId":  "d",
                        "hints":  [
                                      {
                                          "en":  "Passive voice usually uses \u0027be\u0027 + past participle.",
@@ -399,13 +399,13 @@
                        "options":  [
                                        {
                                            "id":  "a",
-                                           "en":  "If we will hurry, we escape.",
-                                           "es":  "If we will hurry, we escape."
+                                           "en":  "If we hurry, we will escape.",
+                                           "es":  "If we hurry, we will escape."
                                        },
                                        {
                                            "id":  "b",
-                                           "en":  "If we hurry, we will escape.",
-                                           "es":  "If we hurry, we will escape."
+                                           "en":  "If we will hurry, we escape.",
+                                           "es":  "If we will hurry, we escape."
                                        },
                                        {
                                            "id":  "c",
@@ -418,7 +418,7 @@
                                            "es":  "If we hurry, we escaped."
                                        }
                                    ],
-                       "correctOptionId":  "b",
+                       "correctOptionId":  "a",
                        "hints":  [
                                      {
                                          "en":  "First conditional: If + present, will + base verb.",
@@ -522,13 +522,13 @@
                                        },
                                        {
                                            "id":  "b",
-                                           "en":  "This route is safer than that one.",
-                                           "es":  "This route is safer than that one."
+                                           "en":  "This route is safest than that one.",
+                                           "es":  "This route is safest than that one."
                                        },
                                        {
                                            "id":  "c",
-                                           "en":  "This route is safest than that one.",
-                                           "es":  "This route is safest than that one."
+                                           "en":  "This route is safer than that one.",
+                                           "es":  "This route is safer than that one."
                                        },
                                        {
                                            "id":  "d",
@@ -536,7 +536,7 @@
                                            "es":  "This route safer that one."
                                        }
                                    ],
-                       "correctOptionId":  "b",
+                       "correctOptionId":  "c",
                        "hints":  [
                                      {
                                          "en":  "Do not combine \u0027more\u0027 with -er for short adjectives.",
@@ -581,26 +581,26 @@
                        "options":  [
                                        {
                                            "id":  "a",
-                                           "en":  "turn off",
-                                           "es":  "turn off"
-                                       },
-                                       {
-                                           "id":  "b",
                                            "en":  "turn on",
                                            "es":  "turn on"
                                        },
                                        {
-                                           "id":  "c",
+                                           "id":  "b",
                                            "en":  "look after",
                                            "es":  "look after"
                                        },
                                        {
-                                           "id":  "d",
+                                           "id":  "c",
                                            "en":  "give up",
                                            "es":  "give up"
+                                       },
+                                       {
+                                           "id":  "d",
+                                           "en":  "turn off",
+                                           "es":  "turn off"
                                        }
                                    ],
-                       "correctOptionId":  "a",
+                       "correctOptionId":  "d",
                        "hints":  [
                                      {
                                          "en":  "The opposite of activate.",
