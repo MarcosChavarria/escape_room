@@ -1,1 +1,96 @@
-hola
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classroom Escape Room</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <h1 id="game-title">Classroom Escape Room</h1>
+        <p id="game-subtitle"></p>
+      </div>
+      <button id="lang-toggle" class="btn secondary" aria-label="Toggle language"></button>
+    </header>
+
+    <main class="panel">
+      <section id="setup-screen" class="setup-box">
+        <h2 id="setup-title"></h2>
+        <p id="setup-description"></p>
+        <div class="setup-controls">
+          <label for="participant-count" id="participant-count-label"></label>
+          <input id="participant-count" class="player-input" type="number" min="2" max="20" value="6" />
+        </div>
+        <div class="setup-controls">
+          <label for="turn-mode" id="turn-mode-label"></label>
+          <select id="turn-mode" class="player-input">
+            <option value="ordered" id="turn-mode-ordered"></option>
+            <option value="random" id="turn-mode-random"></option>
+          </select>
+        </div>
+        <div id="participants-grid" class="participants-grid"></div>
+        <p id="setup-error" class="feedback error"></p>
+        <button id="start-game" class="btn"></button>
+      </section>
+
+      <section id="game-screen" class="game-box hidden">
+        <section class="status-board">
+          <div class="status-item">
+            <span id="round-label"></span>
+            <strong id="round-value"></strong>
+          </div>
+          <div class="status-item">
+            <span id="turn-label"></span>
+            <strong id="turn-value"></strong>
+          </div>
+        </section>
+
+        <section class="scoreboard-box">
+          <h3 id="scoreboard-label"></h3>
+          <ul id="scoreboard-list" class="scoreboard-list"></ul>
+        </section>
+
+        <section class="scene-header">
+          <h2 id="scene-title"></h2>
+          <p id="scene-description"></p>
+        </section>
+
+        <section class="scene-image-wrap">
+          <img id="scene-image" alt="Scene illustration" />
+        </section>
+
+        <section class="objective-box">
+          <h3 id="objective-label"></h3>
+          <p id="objective-text"></p>
+        </section>
+
+        <section class="puzzle-box">
+          <h3 id="puzzle-label"></h3>
+          <p id="puzzle-question"></p>
+          <div class="actions">
+            <button id="search-button" class="btn secondary"></button>
+            <button id="hint-button" class="btn secondary"></button>
+          </div>
+          <p id="search-text" class="hint"></p>
+          <p id="hint-text" class="hint"></p>
+
+          <fieldset id="options-field" class="options-field"></fieldset>
+
+          <div class="actions">
+            <button id="submit-answer" class="btn"></button>
+          </div>
+
+          <p id="feedback-text" class="feedback"></p>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer-note" id="footer-note"></footer>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

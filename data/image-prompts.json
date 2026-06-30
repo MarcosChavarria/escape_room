@@ -1,0 +1,56 @@
+[
+  {
+    "fileName": "img_scene_1_archive_hall.png",
+    "purpose": "Scene 1 background image",
+    "prompt_en": "A cinematic old school archive hall transformed into an escape room, locked cabinet, papers and clocks, warm dust light, mystery educational atmosphere, realistic digital art, 16:9, no readable text",
+    "prompt_es": "Una sala de archivos escolar antigua convertida en escape room, gabinete cerrado, papeles y relojes, luz calida con polvo, atmosfera educativa misteriosa, arte digital realista, 16:9, sin texto legible"
+  },
+  {
+    "fileName": "img_scene_2_map_room.png",
+    "purpose": "Scene 2 background image",
+    "prompt_en": "Escape room map room inside a school, holographic maps projected on walls, route lines and symbols, high detail cinematic concept art, 16:9, no readable text",
+    "prompt_es": "Sala de mapas de escape room dentro de una escuela, mapas holograficos proyectados en paredes, lineas de rutas y simbolos, arte conceptual cinematografico detallado, 16:9, sin texto legible"
+  },
+  {
+    "fileName": "img_scene_3_chem_lab.png",
+    "purpose": "Scene 3 background image",
+    "prompt_en": "School chemistry lab in escape room style, glowing vials, coded cabinet, subtle neon accents, tense puzzle atmosphere, realistic illustration, wide 16:9, no readable text",
+    "prompt_es": "Laboratorio de quimica escolar en estilo escape room, viales brillantes, gabinete codificado, acentos neon sutiles, atmosfera de tension y acertijo, ilustracion realista, 16:9, sin texto legible"
+  },
+  {
+    "fileName": "img_scene_4_server_room.png",
+    "purpose": "Scene 4 background image",
+    "prompt_en": "Futuristic server room in a school basement, AI core lights, cables, locked access panel, dramatic shadows, cinematic digital art, wide 16:9, no readable text",
+    "prompt_es": "Sala de servidores futurista en sotano escolar, luces de nucleo IA, cables, panel de acceso bloqueado, sombras dramaticas, arte digital cinematografico, 16:9, sin texto legible"
+  },
+  {
+    "fileName": "img_scene_5_hologram_chamber.png",
+    "purpose": "Scene 5 background image",
+    "prompt_en": "Hologram chamber inside an academy, floating dialogue-like light shapes, puzzle console in center, sci-fi educational mood, semi-realistic concept art, 16:9, no readable text",
+    "prompt_es": "Camara holografica dentro de una academia, formas de luz tipo dialogo flotando, consola de acertijo al centro, ambiente educativo de ciencia ficcion, arte conceptual semirrealista, 16:9, sin texto legible"
+  },
+  {
+    "fileName": "img_scene_6_observatory.png",
+    "purpose": "Scene 6 background image",
+    "prompt_en": "School observatory turned escape room, giant telescope, star charts, rotating mechanical rings, night sky visible, cinematic realism, 16:9, no readable text",
+    "prompt_es": "Observatorio escolar convertido en escape room, telescopio gigante, mapas estelares, anillos mecanicos giratorios, cielo nocturno visible, realismo cinematografico, 16:9, sin texto legible"
+  },
+  {
+    "fileName": "img_scene_7_clock_tunnel.png",
+    "purpose": "Scene 7 background image",
+    "prompt_en": "Time tunnel corridor with giant clocks and repeating arches in a school escape room, suspenseful blue-orange lighting, detailed concept art, 16:9, no readable text",
+    "prompt_es": "Tunel temporal con relojes gigantes y arcos repetidos en un escape room escolar, iluminacion de suspenso azul-naranja, arte conceptual detallado, 16:9, sin texto legible"
+  },
+  {
+    "fileName": "img_scene_8_core_gate.png",
+    "purpose": "Scene 8 background image",
+    "prompt_en": "Final time core gate in futuristic academy, energy door with symbols and lock mechanism, epic finale atmosphere, realistic digital concept art, wide 16:9, no readable text",
+    "prompt_es": "Portal final del nucleo del tiempo en academia futurista, puerta de energia con simbolos y mecanismo de cierre, atmosfera epica final, arte conceptual digital realista, 16:9, sin texto legible"
+  },
+  {
+    "fileName": "img_scene_9_victory.png",
+    "purpose": "Victory screen image",
+    "prompt_en": "Classroom escape room victory moment, open portal of light, team celebrating together, hopeful cinematic mood, high detail digital art, 16:9, no readable text",
+    "prompt_es": "Momento de victoria en escape room escolar, portal de luz abierto, equipo celebrando junto, tono cinematografico esperanzador, arte digital detallado, 16:9, sin texto legible"
+  }
+]

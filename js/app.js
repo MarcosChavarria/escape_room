@@ -1,0 +1,457 @@
+const STORY_PATH = "data/story.json";
+
+const state = {
+  lang: "en",
+  story: null,
+  participants: [],
+  scores: [],
+  activeScenes: [],
+  sceneIndex: 0,
+  turnPlan: [],
+  turnPointer: 0,
+  turnMode: "ordered",
+  hintIndex: 0,
+  searchUnlocked: false,
+};
+
+const els = {
+  title: document.getElementById("game-title"),
+  subtitle: document.getElementById("game-subtitle"),
+  langToggle: document.getElementById("lang-toggle"),
+  footerNote: document.getElementById("footer-note"),
+
+  setupScreen: document.getElementById("setup-screen"),
+  setupTitle: document.getElementById("setup-title"),
+  setupDescription: document.getElementById("setup-description"),
+  participantsGrid: document.getElementById("participants-grid"),
+  participantCountLabel: document.getElementById("participant-count-label"),
+  participantCountInput: document.getElementById("participant-count"),
+  turnModeLabel: document.getElementById("turn-mode-label"),
+  turnModeSelect: document.getElementById("turn-mode"),
+  turnModeOrdered: document.getElementById("turn-mode-ordered"),
+  turnModeRandom: document.getElementById("turn-mode-random"),
+  setupError: document.getElementById("setup-error"),
+  startGame: document.getElementById("start-game"),
+
+  gameScreen: document.getElementById("game-screen"),
+  roundLabel: document.getElementById("round-label"),
+  roundValue: document.getElementById("round-value"),
+  turnLabel: document.getElementById("turn-label"),
+  turnValue: document.getElementById("turn-value"),
+  scoreboardLabel: document.getElementById("scoreboard-label"),
+  scoreboardList: document.getElementById("scoreboard-list"),
+
+  sceneTitle: document.getElementById("scene-title"),
+  sceneDescription: document.getElementById("scene-description"),
+  sceneImage: document.getElementById("scene-image"),
+  objectiveLabel: document.getElementById("objective-label"),
+  objectiveText: document.getElementById("objective-text"),
+  puzzleLabel: document.getElementById("puzzle-label"),
+  puzzleQuestion: document.getElementById("puzzle-question"),
+  searchButton: document.getElementById("search-button"),
+  hintButton: document.getElementById("hint-button"),
+  searchText: document.getElementById("search-text"),
+  hintText: document.getElementById("hint-text"),
+  optionsField: document.getElementById("options-field"),
+  submitAnswer: document.getElementById("submit-answer"),
+  feedbackText: document.getElementById("feedback-text"),
+};
+
+function t(node) {
+  return node?.[state.lang] ?? "";
+}
+
+function clearFeedback() {
+  els.feedbackText.textContent = "";
+  els.feedbackText.classList.remove("ok", "error");
+}
+
+function currentScene() {
+  return state.activeScenes[state.sceneIndex];
+}
+
+function currentResponder() {
+  if (state.participants.length === 0 || state.turnPlan.length === 0) {
+    return "-";
+  }
+  const participantIndex = state.turnPlan[state.turnPointer];
+  return state.participants[participantIndex] ?? "-";
+}
+
+function turnParticipantIndex() {
+  if (state.participants.length === 0 || state.turnPlan.length === 0) {
+    return 0;
+  }
+  return state.turnPlan[state.turnPointer];
+}
+
+function renderParticipantInputs() {
+  const ui = state.story.ui;
+  const requested = Number.parseInt(els.participantCountInput.value, 10);
+  const teamSize = Number.isNaN(requested) ? 2 : Math.max(2, Math.min(20, requested));
+  els.participantCountInput.value = String(teamSize);
+  const existingValues = Array.from(document.querySelectorAll(".participant-name")).map((input) => input.value.trim());
+
+  els.participantsGrid.innerHTML = "";
+
+  for (let i = 0; i < teamSize; i += 1) {
+    const wrapper = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "player-input participant-name";
+    input.maxLength = 24;
+    input.placeholder = `${t(ui.playerPlaceholder)} ${i + 1}`;
+    input.setAttribute("data-player-index", String(i));
+    input.value = existingValues[i] ?? "";
+
+    wrapper.appendChild(input);
+    els.participantsGrid.appendChild(wrapper);
+  }
+}
+
+function renderScoreboard() {
+  const scoreText = t(state.story.ui.scoreLine);
+  els.scoreboardList.innerHTML = "";
+
+  state.participants.forEach((name, index) => {
+    const item = document.createElement("li");
+    item.textContent = `${name}: ${state.scores[index]} ${scoreText}`;
+    if (index === turnParticipantIndex()) {
+      item.style.fontWeight = "700";
+    }
+    els.scoreboardList.appendChild(item);
+  });
+}
+
+function renderOptions(scene) {
+  els.optionsField.innerHTML = "";
+
+  scene.options.forEach((option, index) => {
+    const row = document.createElement("label");
+    row.className = "option-row";
+
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = "answer-option";
+    radio.value = option.id;
+    radio.id = `option-${index}`;
+
+    const text = document.createElement("span");
+    text.textContent = t(option);
+
+    row.appendChild(radio);
+    row.appendChild(text);
+    els.optionsField.appendChild(row);
+  });
+}
+
+function renderCompleted() {
+  const ui = state.story.ui;
+  els.sceneTitle.textContent = t(ui.completed);
+  els.sceneDescription.textContent = t(ui.completedDescription);
+  els.objectiveText.textContent = t(ui.completedDescription);
+  els.puzzleQuestion.textContent = "";
+  els.searchButton.style.display = "none";
+  els.hintButton.style.display = "none";
+  els.optionsField.style.display = "none";
+  els.submitAnswer.style.display = "none";
+  els.searchText.textContent = "";
+  els.hintText.textContent = "";
+  clearFeedback();
+
+  els.roundValue.textContent = `${state.activeScenes.length} / ${state.activeScenes.length}`;
+  els.turnValue.textContent = "-";
+
+  els.sceneImage.style.display = "block";
+  els.sceneImage.src = "img_scene_9_victory.png";
+  els.sceneImage.onerror = () => {
+    els.sceneImage.style.display = "none";
+  };
+}
+
+function renderGame() {
+  const story = state.story;
+  const ui = story.ui;
+  const scene = currentScene();
+
+  els.title.textContent = t(story.meta.title);
+  els.subtitle.textContent = t(story.meta.subtitle);
+  els.footerNote.textContent = t(story.meta.footer);
+  els.langToggle.textContent = t(ui.langToggle);
+
+  els.roundLabel.textContent = t(ui.roundLabel);
+  els.turnLabel.textContent = t(ui.turnLabel);
+  els.scoreboardLabel.textContent = t(ui.scoreboardLabel);
+  els.objectiveLabel.textContent = t(ui.objectiveLabel);
+  els.puzzleLabel.textContent = t(ui.puzzleLabel);
+  els.searchButton.textContent = t(ui.search);
+  els.hintButton.textContent = state.hintIndex > 0 ? t(ui.nextHint) : t(ui.hint);
+  els.submitAnswer.textContent = t(ui.submit);
+
+  renderScoreboard();
+
+  if (!scene) {
+    renderCompleted();
+    return;
+  }
+
+  els.optionsField.style.display = "grid";
+  els.submitAnswer.style.display = "inline-block";
+
+  els.roundValue.textContent = `${state.sceneIndex + 1} / ${state.activeScenes.length}`;
+  els.turnValue.textContent = currentResponder();
+
+  els.sceneTitle.textContent = t(scene.title);
+  els.sceneDescription.textContent = t(scene.description);
+  els.objectiveText.textContent = t(scene.objective);
+  els.puzzleQuestion.textContent = t(scene.question);
+
+  els.sceneImage.style.display = "block";
+  els.sceneImage.src = scene.image;
+  els.sceneImage.onerror = () => {
+    els.sceneImage.style.display = "none";
+  };
+
+  renderOptions(scene);
+
+  const needsSearch = Boolean(scene.requiresSearch);
+  els.searchButton.style.display = needsSearch ? "inline-block" : "none";
+  els.searchButton.disabled = state.searchUnlocked;
+  els.searchText.textContent = state.searchUnlocked && scene.searchClue ? t(scene.searchClue) : "";
+
+  els.hintText.textContent = "";
+}
+
+function advanceTurn() {
+  if (state.participants.length === 0 || state.turnPlan.length === 0) {
+    return;
+  }
+  state.turnPointer = (state.turnPointer + 1) % state.turnPlan.length;
+}
+
+function nextScene() {
+  state.sceneIndex += 1;
+  state.hintIndex = 0;
+  state.searchUnlocked = false;
+  els.searchText.textContent = "";
+  els.hintText.textContent = "";
+  clearFeedback();
+}
+
+function showHint() {
+  const scene = currentScene();
+  if (!scene || !scene.hints?.length) {
+    return;
+  }
+
+  const idx = Math.min(state.hintIndex, scene.hints.length - 1);
+  els.hintText.textContent = t(scene.hints[idx]);
+  if (state.hintIndex < scene.hints.length - 1) {
+    state.hintIndex += 1;
+  }
+
+  els.hintButton.textContent = t(state.story.ui.nextHint);
+}
+
+function searchClue() {
+  const scene = currentScene();
+  if (!scene || !scene.requiresSearch || state.searchUnlocked) {
+    return;
+  }
+
+  state.searchUnlocked = true;
+  els.searchText.textContent = t(scene.searchClue);
+  els.searchButton.disabled = true;
+}
+
+function selectedOptionId() {
+  const selected = document.querySelector('input[name="answer-option"]:checked');
+  return selected?.value ?? "";
+}
+
+function handleAnswer() {
+  const scene = currentScene();
+  if (!scene) {
+    return;
+  }
+
+  clearFeedback();
+
+  if (scene.requiresSearch && !state.searchUnlocked) {
+    els.feedbackText.textContent = t(state.story.ui.searchFirst);
+    els.feedbackText.classList.add("error");
+    return;
+  }
+
+  const picked = selectedOptionId();
+  if (!picked) {
+    els.feedbackText.textContent = t(state.story.ui.chooseOption);
+    els.feedbackText.classList.add("error");
+    return;
+  }
+
+  if (picked === scene.correctOptionId) {
+    els.feedbackText.textContent = t(state.story.ui.correct);
+    els.feedbackText.classList.add("ok");
+    state.scores[turnParticipantIndex()] += 1;
+
+    setTimeout(() => {
+      advanceTurn();
+      nextScene();
+      renderGame();
+    }, 900);
+    return;
+  }
+
+  els.feedbackText.textContent = t(state.story.ui.incorrect);
+  els.feedbackText.classList.add("error");
+
+  setTimeout(() => {
+    advanceTurn();
+    clearFeedback();
+    renderGame();
+  }, 800);
+}
+
+function setupGame() {
+  renderParticipantInputs();
+  const inputs = Array.from(document.querySelectorAll(".participant-name"));
+  const names = inputs.map((input) => input.value.trim());
+
+  if (names.some((name) => !name)) {
+    els.setupError.textContent = t(state.story.ui.setupError);
+    return;
+  }
+
+  state.participants = names;
+  state.scores = names.map(() => 0);
+  state.turnMode = els.turnModeSelect.value === "random" ? "random" : "ordered";
+  state.activeScenes = buildScenePlan(state.story.scenes, names.length * 2);
+  state.turnPlan = buildTurnPlan(names.length, state.activeScenes.length, state.turnMode);
+  state.sceneIndex = 0;
+  state.turnPointer = 0;
+  state.hintIndex = 0;
+  state.searchUnlocked = false;
+
+  els.setupError.textContent = "";
+  els.setupScreen.classList.add("hidden");
+  els.gameScreen.classList.remove("hidden");
+  renderGame();
+}
+
+function renderSetup() {
+  const story = state.story;
+  const ui = story.ui;
+
+  els.title.textContent = t(story.meta.title);
+  els.subtitle.textContent = t(story.meta.subtitle);
+  els.footerNote.textContent = t(story.meta.footer);
+  els.langToggle.textContent = t(ui.langToggle);
+
+  els.setupTitle.textContent = t(ui.setupTitle);
+  els.setupDescription.textContent = t(ui.setupDescription);
+  els.participantCountLabel.textContent = t(ui.participantCountLabel);
+  els.turnModeLabel.textContent = t(ui.turnModeLabel);
+  els.turnModeOrdered.textContent = t(ui.turnModeOrdered);
+  els.turnModeRandom.textContent = t(ui.turnModeRandom);
+  els.startGame.textContent = t(ui.startGame);
+
+  renderParticipantInputs();
+}
+
+function shuffled(numbers) {
+  const list = [...numbers];
+  for (let i = list.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = list[i];
+    list[i] = list[j];
+    list[j] = temp;
+  }
+  return list;
+}
+
+function cloneScene(scene, suffix, ui) {
+  return {
+    ...scene,
+    id: `${scene.id}-${suffix}`,
+    title: {
+      en: `${scene.title.en} (${ui.bonusTag.en} ${suffix})`,
+      es: `${scene.title.es} (${ui.bonusTag.es} ${suffix})`,
+    },
+  };
+}
+
+function buildScenePlan(baseScenes, minimumRounds) {
+  const plan = baseScenes.map((scene) => ({ ...scene }));
+  if (plan.length >= minimumRounds) {
+    return plan;
+  }
+
+  let extraIndex = 1;
+  while (plan.length < minimumRounds) {
+    const source = baseScenes[(extraIndex - 1) % baseScenes.length];
+    plan.push(cloneScene(source, extraIndex, state.story.ui));
+    extraIndex += 1;
+  }
+
+  return plan;
+}
+
+function buildTurnPlan(participantCount, rounds, mode) {
+  const minTurnsPerParticipant = 2;
+  const minimumSlots = participantCount * minTurnsPerParticipant;
+  const totalSlots = Math.max(rounds, minimumSlots);
+  const base = [];
+
+  for (let i = 0; i < participantCount; i += 1) {
+    for (let j = 0; j < minTurnsPerParticipant; j += 1) {
+      base.push(i);
+    }
+  }
+
+  let plan = mode === "random" ? shuffled(base) : [...base];
+
+  while (plan.length < totalSlots) {
+    if (mode === "random") {
+      const segment = shuffled(Array.from({ length: participantCount }, (_, index) => index));
+      plan = [...plan, ...segment];
+    } else {
+      for (let i = 0; i < participantCount; i += 1) {
+        plan.push(i);
+      }
+    }
+  }
+
+  return plan.slice(0, totalSlots);
+}
+
+function bindEvents() {
+  els.langToggle.addEventListener("click", () => {
+    state.lang = state.lang === "en" ? "es" : "en";
+
+    if (els.gameScreen.classList.contains("hidden")) {
+      renderSetup();
+      return;
+    }
+
+    renderGame();
+  });
+
+  els.startGame.addEventListener("click", setupGame);
+  els.participantCountInput.addEventListener("change", renderParticipantInputs);
+  els.submitAnswer.addEventListener("click", handleAnswer);
+  els.hintButton.addEventListener("click", showHint);
+  els.searchButton.addEventListener("click", searchClue);
+}
+
+async function init() {
+  const response = await fetch(STORY_PATH);
+  state.story = await response.json();
+  bindEvents();
+  renderSetup();
+}
+
+init().catch((error) => {
+  console.error("Failed to initialize the game", error);
+  els.setupTitle.textContent = "Error loading game";
+});
