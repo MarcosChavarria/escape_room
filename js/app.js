@@ -194,7 +194,7 @@ function turnParticipantIndex() {
 function renderParticipantInputs() {
   const ui = state.story.ui;
   const requested = Number.parseInt(els.participantCountInput.value, 10);
-  const teamSize = Number.isNaN(requested) ? 2 : Math.max(2, Math.min(20, requested));
+  const teamSize = Number.isNaN(requested) ? 2 : Math.max(2, Math.min(8, requested));
   els.participantCountInput.value = String(teamSize);
   const existingValues = Array.from(document.querySelectorAll(".participant-name")).map((input) => input.value.trim());
 
@@ -307,6 +307,8 @@ function renderCompleted() {
   const ui = state.story.ui;
   els.sceneTitle.textContent = t(ui.completed);
   els.sceneDescription.textContent = t(ui.completedDescription);
+  els.sceneBridgeLabel.textContent = t(ui.epilogueLabel);
+  els.sceneBridgeText.textContent = t(ui.epilogueText);
   els.objectiveText.textContent = t(ui.completedDescription);
   els.puzzleQuestion.textContent = "";
   els.searchButton.style.display = "none";
@@ -315,7 +317,6 @@ function renderCompleted() {
   els.submitAnswer.style.display = "none";
   els.searchText.textContent = "";
   els.hintText.textContent = "";
-  els.sceneBridgeText.textContent = "";
   els.sceneBridgeNext.style.display = "none";
   clearFeedback();
 
@@ -685,4 +686,5 @@ init().catch((error) => {
   console.error("Failed to initialize the game", error);
   els.setupTitle.textContent = "Error loading game";
 });
+
 
