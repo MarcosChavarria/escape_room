@@ -228,6 +228,49 @@ h1, h2, h3, p {
   padding-bottom: 0.2rem;
 }
 
+body.game-active .app {
+  max-width: none;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
+body.game-active .topbar {
+  position: fixed;
+  top: 0.55rem;
+  right: 0.55rem;
+  z-index: 30;
+  margin: 0;
+}
+
+body.game-active .topbar > div {
+  display: none;
+}
+
+body.game-active #lang-toggle {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+body.game-active .panel {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  gap: 0;
+}
+
+body.game-active .game-box {
+  border-radius: 0;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+body.game-active .footer-note {
+  display: none;
+}
+
 @media (max-width: 640px) {
   body {
     overflow: auto;

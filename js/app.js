@@ -409,6 +409,7 @@ function setupGame() {
   els.setupError.textContent = "";
   els.setupScreen.classList.add("hidden");
   els.gameScreen.classList.remove("hidden");
+  document.body.classList.add("game-active");
   renderGame();
 }
 
