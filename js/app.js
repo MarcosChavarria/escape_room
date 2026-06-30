@@ -10,6 +10,7 @@ const state = {
   turnPlan: [],
   turnPointer: 0,
   turnMode: "ordered",
+  difficulty: "normal",
   hintIndex: 0,
   searchUnlocked: false,
   setupIntroIndex: 0,
@@ -38,6 +39,11 @@ const els = {
   turnModeSelect: document.getElementById("turn-mode"),
   turnModeOrdered: document.getElementById("turn-mode-ordered"),
   turnModeRandom: document.getElementById("turn-mode-random"),
+  difficultyLabel: document.getElementById("difficulty-label"),
+  difficultyMode: document.getElementById("difficulty-mode"),
+  difficultyNormal: document.getElementById("difficulty-normal"),
+  difficultyHard: document.getElementById("difficulty-hard"),
+  difficultyExtreme: document.getElementById("difficulty-extreme"),
   setupError: document.getElementById("setup-error"),
   startGame: document.getElementById("start-game"),
 
@@ -185,6 +191,28 @@ function currentScene() {
   return state.activeScenes[state.sceneIndex];
 }
 
+function getSceneChallenge(scene) {
+  const difficulty = state.difficulty;
+  const variant = scene?.challenges?.[difficulty];
+  if (variant) {
+    return {
+      ...variant,
+      requiresSearch: Boolean(variant.requiresSearch ?? scene.requiresSearch),
+      searchClue: variant.searchClue ?? scene.searchClue,
+    };
+  }
+
+  return {
+    objective: scene.objective,
+    question: scene.question,
+    options: scene.options ?? [],
+    correctOptionId: scene.correctOptionId,
+    hints: scene.hints ?? [],
+    requiresSearch: Boolean(scene.requiresSearch),
+    searchClue: scene.searchClue,
+  };
+}
+
 function baseSceneId(sceneId) {
   if (!sceneId) {
     return "";
@@ -298,10 +326,10 @@ function renderSceneBridge(scene) {
   els.sceneBridgeNext.textContent = index < lines.length - 1 ? t(ui.sceneBridgeNext) : t(ui.sceneBridgeUnlock);
 }
 
-function renderOptions(scene) {
+function renderOptions(challenge) {
   els.optionsField.innerHTML = "";
 
-  scene.options.forEach((option, index) => {
+  challenge.options.forEach((option, index) => {
     const row = document.createElement("label");
     row.className = "option-row";
 
@@ -374,6 +402,7 @@ function renderGame() {
   const story = state.story;
   const ui = story.ui;
   const scene = currentScene();
+  const challenge = scene ? getSceneChallenge(scene) : null;
   els.gameScreen.classList.remove("ending-focus");
 
   els.title.textContent = t(story.meta.title);
@@ -407,17 +436,17 @@ function renderGame() {
   els.sceneDescription.textContent = t(scene.description);
   renderSceneBridge(scene);
   renderMap(scene);
-  els.objectiveText.textContent = t(scene.objective);
-  els.puzzleQuestion.textContent = t(scene.question);
+  els.objectiveText.textContent = t(challenge.objective);
+  els.puzzleQuestion.textContent = t(challenge.question);
 
   els.gameScreen.style.backgroundImage = `url("${scene.image}")`;
 
-  renderOptions(scene);
+  renderOptions(challenge);
 
-  const needsSearch = Boolean(scene.requiresSearch);
+  const needsSearch = Boolean(challenge.requiresSearch);
   els.searchButton.style.display = needsSearch ? "inline-block" : "none";
   els.searchButton.disabled = state.searchUnlocked;
-  els.searchText.textContent = state.searchUnlocked && scene.searchClue ? t(scene.searchClue) : "";
+  els.searchText.textContent = state.searchUnlocked && challenge.searchClue ? t(challenge.searchClue) : "";
 
   els.hintText.textContent = "";
 
@@ -455,13 +484,14 @@ function showHint() {
     return;
   }
   const scene = currentScene();
-  if (!scene || !scene.hints?.length) {
+  const challenge = scene ? getSceneChallenge(scene) : null;
+  if (!challenge || !challenge.hints?.length) {
     return;
   }
 
-  const idx = Math.min(state.hintIndex, scene.hints.length - 1);
-  els.hintText.textContent = t(scene.hints[idx]);
-  if (state.hintIndex < scene.hints.length - 1) {
+  const idx = Math.min(state.hintIndex, challenge.hints.length - 1);
+  els.hintText.textContent = t(challenge.hints[idx]);
+  if (state.hintIndex < challenge.hints.length - 1) {
     state.hintIndex += 1;
   }
 
@@ -474,12 +504,13 @@ function searchClue() {
     return;
   }
   const scene = currentScene();
-  if (!scene || !scene.requiresSearch || state.searchUnlocked) {
+  const challenge = scene ? getSceneChallenge(scene) : null;
+  if (!challenge || !challenge.requiresSearch || state.searchUnlocked) {
     return;
   }
 
   state.searchUnlocked = true;
-  els.searchText.textContent = t(scene.searchClue);
+  els.searchText.textContent = t(challenge.searchClue);
   els.searchButton.disabled = true;
   playSfx("search");
 }
@@ -494,7 +525,8 @@ function handleAnswer() {
     return;
   }
   const scene = currentScene();
-  if (!scene) {
+  const challenge = scene ? getSceneChallenge(scene) : null;
+  if (!scene || !challenge) {
     return;
   }
 
@@ -506,7 +538,7 @@ function handleAnswer() {
 
   clearFeedback();
 
-  if (scene.requiresSearch && !state.searchUnlocked) {
+  if (challenge.requiresSearch && !state.searchUnlocked) {
     els.feedbackText.textContent = t(state.story.ui.searchFirst);
     els.feedbackText.classList.add("error");
     return;
@@ -519,7 +551,7 @@ function handleAnswer() {
     return;
   }
 
-  if (picked === scene.correctOptionId) {
+  if (picked === challenge.correctOptionId) {
     state.transitionLock = true;
     setPuzzleControlsEnabled(false);
     els.feedbackText.textContent = t(state.story.ui.correct);
@@ -566,6 +598,7 @@ function setupGame() {
   state.participants = names;
   state.scores = names.map(() => 0);
   state.turnMode = els.turnModeSelect.value === "random" ? "random" : "ordered";
+  state.difficulty = ["normal", "hard", "extreme"].includes(els.difficultyMode.value) ? els.difficultyMode.value : "normal";
   state.activeScenes = buildScenePlan(state.story.scenes, names.length * 2);
   state.turnPlan = buildTurnPlan(names.length, state.activeScenes.length, state.turnMode);
   state.sceneIndex = 0;
@@ -620,6 +653,12 @@ function renderSetup() {
   els.turnModeLabel.textContent = t(ui.turnModeLabel);
   els.turnModeOrdered.textContent = t(ui.turnModeOrdered);
   els.turnModeRandom.textContent = t(ui.turnModeRandom);
+  els.turnModeSelect.value = state.turnMode;
+  els.difficultyLabel.textContent = t(ui.difficultyLabel);
+  els.difficultyNormal.textContent = t(ui.difficultyNormal);
+  els.difficultyHard.textContent = t(ui.difficultyHard);
+  els.difficultyExtreme.textContent = t(ui.difficultyExtreme);
+  els.difficultyMode.value = state.difficulty;
   els.startGame.textContent = t(ui.startGame);
 
   renderParticipantInputs();
