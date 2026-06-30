@@ -309,6 +309,8 @@ function renderCompleted() {
   els.sceneDescription.textContent = t(ui.completedDescription);
   els.sceneBridgeLabel.textContent = t(ui.epilogueLabel);
   els.sceneBridgeText.textContent = t(ui.epilogueText);
+  els.sceneBridgeNext.textContent = t(ui.escapeAction);
+  els.sceneBridgeNext.style.display = "inline-block";
   els.objectiveText.textContent = t(ui.completedDescription);
   els.puzzleQuestion.textContent = "";
   els.searchButton.style.display = "none";
@@ -317,12 +319,11 @@ function renderCompleted() {
   els.submitAnswer.style.display = "none";
   els.searchText.textContent = "";
   els.hintText.textContent = "";
-  els.sceneBridgeNext.style.display = "none";
   clearFeedback();
 
   els.roundValue.textContent = `${state.activeScenes.length} / ${state.activeScenes.length}`;
   els.turnValue.textContent = "-";
-  els.gameScreen.classList.add("bridge-focus", "ending-focus");
+  els.gameScreen.classList.remove("bridge-focus", "ending-focus");
 
   els.gameScreen.style.backgroundImage = `url("images/img_scene_9_victory.png")`;
   playSfx("scene");
@@ -539,6 +540,27 @@ function setupGame() {
   renderGame();
 }
 
+function returnToSetup() {
+  state.sceneIndex = 0;
+  state.turnPointer = 0;
+  state.hintIndex = 0;
+  state.searchUnlocked = false;
+  state.sceneBridgeIndex = 0;
+  state.sceneBridgeUnlocked = false;
+  state.transitionLock = false;
+  state.setupIntroIndex = 0;
+  state.participants = [];
+  state.scores = [];
+  state.activeScenes = [];
+  state.turnPlan = [];
+
+  document.body.classList.remove("game-active");
+  els.gameScreen.classList.add("hidden");
+  els.setupScreen.classList.remove("hidden");
+  els.gameScreen.classList.remove("bridge-focus", "ending-focus");
+  renderSetup();
+}
+
 function renderSetup() {
   const story = state.story;
   const ui = story.ui;
@@ -655,6 +677,7 @@ function bindEvents() {
   els.sceneBridgeNext.addEventListener("click", () => {
     const scene = currentScene();
     if (!scene) {
+      returnToSetup();
       return;
     }
     const lines = scene.bridgeLines ?? [];
