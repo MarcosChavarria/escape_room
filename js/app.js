@@ -63,6 +63,8 @@ const els = {
   optionsField: document.getElementById("options-field"),
   submitAnswer: document.getElementById("submit-answer"),
   feedbackText: document.getElementById("feedback-text"),
+  turnBanner: document.getElementById("turn-banner"),
+  turnBannerText: document.getElementById("turn-banner-text"),
 };
 
 function t(node) {
@@ -72,6 +74,31 @@ function t(node) {
 function clearFeedback() {
   els.feedbackText.textContent = "";
   els.feedbackText.classList.remove("ok", "error");
+}
+
+function formatTemplate(template, replacements) {
+  let text = template;
+  Object.entries(replacements).forEach(([key, value]) => {
+    text = text.replaceAll(`{${key}}`, value);
+  });
+  return text;
+}
+
+function showTurnBanner(kind) {
+  if (!els.turnBanner || !els.turnBannerText) {
+    return;
+  }
+
+  const ui = state.story.ui;
+  const responder = currentResponder();
+  const template = kind === "scene" ? t(ui.turnBannerScene) : t(ui.turnBannerWrong);
+  els.turnBannerText.textContent = formatTemplate(template, { name: responder });
+  els.turnBanner.classList.add("is-visible");
+
+  window.clearTimeout(showTurnBanner.timeoutId);
+  showTurnBanner.timeoutId = window.setTimeout(() => {
+    els.turnBanner.classList.remove("is-visible");
+  }, 1450);
 }
 
 function currentScene() {
@@ -223,6 +250,7 @@ function renderCompleted() {
 
   els.roundValue.textContent = `${state.activeScenes.length} / ${state.activeScenes.length}`;
   els.turnValue.textContent = "-";
+  els.gameScreen.classList.remove("bridge-focus");
 
   els.gameScreen.style.backgroundImage = `url("images/img_scene_9_victory.png")`;
 }
@@ -277,10 +305,12 @@ function renderGame() {
   els.hintText.textContent = "";
 
   if (!state.sceneBridgeUnlocked) {
+    els.gameScreen.classList.add("bridge-focus");
     setPuzzleControlsEnabled(false);
     clearFeedback();
     els.feedbackText.textContent = t(ui.readBridgeFirst);
   } else {
+    els.gameScreen.classList.remove("bridge-focus");
     setPuzzleControlsEnabled(true);
   }
 }
@@ -370,6 +400,7 @@ function handleAnswer() {
       advanceTurn();
       nextScene();
       renderGame();
+      showTurnBanner("scene");
     }, 900);
     return;
   }
@@ -381,6 +412,7 @@ function handleAnswer() {
     advanceTurn();
     clearFeedback();
     renderGame();
+    showTurnBanner("wrong");
   }, 800);
 }
 

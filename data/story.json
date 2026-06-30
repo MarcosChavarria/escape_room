@@ -164,7 +164,15 @@
                                            "en":  "Your team must explore each room, decode clues, and solve language challenges. Every participant will lead at key moments. Focus, collaborate, and begin the escape.",
                                            "es":  "Tu equipo debe explorar cada sala, decodificar pistas y resolver desafios de lenguaje. Cada participante liderara en momentos clave. Enfoquense, colaboren y comiencen el escape."
                                        }
-                                   ]
+                                   ],
+               "turnBannerWrong":  {
+                                       "en":  "Turn passes to: {name}",
+                                       "es":  "El turno pasa a: {name}"
+                                   },
+               "turnBannerScene":  {
+                                       "en":  "New scene. Next responder: {name}",
+                                       "es":  "Nueva escena. Participante: {name}"
+                                   }
            },
     "scenes":  [
                    {
