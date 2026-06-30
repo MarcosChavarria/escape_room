@@ -52,7 +52,6 @@ const els = {
   sceneBridgeLabel: document.getElementById("scene-bridge-label"),
   sceneBridgeText: document.getElementById("scene-bridge-text"),
   sceneBridgeNext: document.getElementById("scene-bridge-next"),
-  sceneImage: document.getElementById("scene-image"),
   objectiveLabel: document.getElementById("objective-label"),
   objectiveText: document.getElementById("objective-text"),
   puzzleLabel: document.getElementById("puzzle-label"),
@@ -225,11 +224,7 @@ function renderCompleted() {
   els.roundValue.textContent = `${state.activeScenes.length} / ${state.activeScenes.length}`;
   els.turnValue.textContent = "-";
 
-  els.sceneImage.style.display = "block";
-  els.sceneImage.src = "images/img_scene_9_victory.png";
-  els.sceneImage.onerror = () => {
-    els.sceneImage.style.display = "none";
-  };
+  els.gameScreen.style.backgroundImage = `url("images/img_scene_9_victory.png")`;
 }
 
 function renderGame() {
@@ -270,11 +265,7 @@ function renderGame() {
   els.objectiveText.textContent = t(scene.objective);
   els.puzzleQuestion.textContent = t(scene.question);
 
-  els.sceneImage.style.display = "block";
-  els.sceneImage.src = scene.image;
-  els.sceneImage.onerror = () => {
-    els.sceneImage.style.display = "none";
-  };
+  els.gameScreen.style.backgroundImage = `url("${scene.image}")`;
 
   renderOptions(scene);
 
