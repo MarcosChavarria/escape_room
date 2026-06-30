@@ -163,7 +163,7 @@ function renderCompleted() {
   els.turnValue.textContent = "-";
 
   els.sceneImage.style.display = "block";
-  els.sceneImage.src = "img_scene_9_victory.png";
+  els.sceneImage.src = "images/img_scene_9_victory.png";
   els.sceneImage.onerror = () => {
     els.sceneImage.style.display = "none";
   };
@@ -455,3 +455,4 @@ init().catch((error) => {
   console.error("Failed to initialize the game", error);
   els.setupTitle.textContent = "Error loading game";
 });
+

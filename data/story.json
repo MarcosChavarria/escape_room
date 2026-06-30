@@ -127,7 +127,7 @@
   "scenes": [
     {
       "id": "scene-1",
-      "image": "img_scene_1_archive_hall.png",
+      "image": "images/img_scene_1_archive_hall.png",
       "title": {
         "en": "Scene 1: Archive Hall",
         "es": "Escena 1: Sala de Archivos"
@@ -180,7 +180,7 @@
     },
     {
       "id": "scene-2",
-      "image": "img_scene_2_map_room.png",
+      "image": "images/img_scene_2_map_room.png",
       "title": {
         "en": "Scene 2: Map Room",
         "es": "Escena 2: Sala de Mapas"
@@ -233,7 +233,7 @@
     },
     {
       "id": "scene-3",
-      "image": "img_scene_3_chem_lab.png",
+      "image": "images/img_scene_3_chem_lab.png",
       "title": {
         "en": "Scene 3: Chemistry Lab",
         "es": "Escena 3: Laboratorio de Quimica"
@@ -291,7 +291,7 @@
     },
     {
       "id": "scene-4",
-      "image": "img_scene_4_server_room.png",
+      "image": "images/img_scene_4_server_room.png",
       "title": {
         "en": "Scene 4: Server Room",
         "es": "Escena 4: Sala de Servidores"
@@ -340,7 +340,7 @@
     },
     {
       "id": "scene-5",
-      "image": "img_scene_5_hologram_chamber.png",
+      "image": "images/img_scene_5_hologram_chamber.png",
       "title": {
         "en": "Scene 5: Hologram Chamber",
         "es": "Escena 5: Camara Holografica"
@@ -389,7 +389,7 @@
     },
     {
       "id": "scene-6",
-      "image": "img_scene_6_observatory.png",
+      "image": "images/img_scene_6_observatory.png",
       "title": {
         "en": "Scene 6: Observatory Deck",
         "es": "Escena 6: Plataforma del Observatorio"
@@ -438,7 +438,7 @@
     },
     {
       "id": "scene-7",
-      "image": "img_scene_7_clock_tunnel.png",
+      "image": "images/img_scene_7_clock_tunnel.png",
       "title": {
         "en": "Scene 7: Clock Tunnel",
         "es": "Escena 7: Tunel del Reloj"
@@ -492,7 +492,7 @@
     },
     {
       "id": "scene-8",
-      "image": "img_scene_8_core_gate.png",
+      "image": "images/img_scene_8_core_gate.png",
       "title": {
         "en": "Scene 8: Time Core Gate",
         "es": "Escena 8: Portal del Nucleo del Tiempo"
@@ -541,3 +541,4 @@
     }
   ]
 }
+
