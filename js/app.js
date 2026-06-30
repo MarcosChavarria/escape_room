@@ -15,6 +15,8 @@ const state = {
   setupIntroIndex: 0,
   sceneBridgeIndex: 0,
   sceneBridgeUnlocked: false,
+  transitionLock: false,
+  audioCtx: null,
 };
 
 const els = {
@@ -76,6 +78,74 @@ function clearFeedback() {
   els.feedbackText.classList.remove("ok", "error");
 }
 
+function getAudioCtx() {
+  if (!window.AudioContext && !window.webkitAudioContext) {
+    return null;
+  }
+  if (!state.audioCtx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    state.audioCtx = new Ctx();
+  }
+  if (state.audioCtx.state === "suspended") {
+    state.audioCtx.resume().catch(() => {});
+  }
+  return state.audioCtx;
+}
+
+function playTone(frequency, durationMs, type = "sine", volume = 0.04, delayMs = 0) {
+  const ctx = getAudioCtx();
+  if (!ctx) {
+    return;
+  }
+
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const startAt = ctx.currentTime + delayMs / 1000;
+  const endAt = startAt + durationMs / 1000;
+
+  osc.type = type;
+  osc.frequency.setValueAtTime(frequency, startAt);
+  gain.gain.setValueAtTime(0.0001, startAt);
+  gain.gain.exponentialRampToValueAtTime(volume, startAt + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, endAt);
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(startAt);
+  osc.stop(endAt + 0.01);
+}
+
+function playSfx(kind) {
+  if (kind === "correct") {
+    playTone(620, 90, "triangle", 0.045, 0);
+    playTone(780, 120, "triangle", 0.05, 95);
+    return;
+  }
+  if (kind === "wrong") {
+    playTone(260, 130, "sawtooth", 0.035, 0);
+    playTone(200, 160, "sawtooth", 0.03, 110);
+    return;
+  }
+  if (kind === "hint") {
+    playTone(520, 90, "sine", 0.03, 0);
+    return;
+  }
+  if (kind === "search") {
+    playTone(420, 80, "square", 0.025, 0);
+    playTone(520, 80, "square", 0.025, 85);
+    return;
+  }
+  if (kind === "turn") {
+    playTone(700, 80, "triangle", 0.03, 0);
+    playTone(580, 80, "triangle", 0.026, 95);
+    return;
+  }
+  if (kind === "scene") {
+    playTone(500, 90, "sine", 0.025, 0);
+    playTone(620, 120, "sine", 0.028, 90);
+  }
+}
+
 function formatTemplate(template, replacements) {
   let text = template;
   Object.entries(replacements).forEach(([key, value]) => {
@@ -94,6 +164,7 @@ function showTurnBanner(kind) {
   const template = kind === "scene" ? t(ui.turnBannerScene) : t(ui.turnBannerWrong);
   els.turnBannerText.textContent = formatTemplate(template, { name: responder });
   els.turnBanner.classList.add("is-visible");
+  playSfx("turn");
 
   window.clearTimeout(showTurnBanner.timeoutId);
   showTurnBanner.timeoutId = window.setTimeout(() => {
@@ -253,6 +324,7 @@ function renderCompleted() {
   els.gameScreen.classList.remove("bridge-focus");
 
   els.gameScreen.style.backgroundImage = `url("images/img_scene_9_victory.png")`;
+  playSfx("scene");
 }
 
 function renderGame() {
@@ -334,6 +406,9 @@ function nextScene() {
 }
 
 function showHint() {
+  if (state.transitionLock) {
+    return;
+  }
   const scene = currentScene();
   if (!scene || !scene.hints?.length) {
     return;
@@ -346,9 +421,13 @@ function showHint() {
   }
 
   els.hintButton.textContent = t(state.story.ui.nextHint);
+  playSfx("hint");
 }
 
 function searchClue() {
+  if (state.transitionLock) {
+    return;
+  }
   const scene = currentScene();
   if (!scene || !scene.requiresSearch || state.searchUnlocked) {
     return;
@@ -357,6 +436,7 @@ function searchClue() {
   state.searchUnlocked = true;
   els.searchText.textContent = t(scene.searchClue);
   els.searchButton.disabled = true;
+  playSfx("search");
 }
 
 function selectedOptionId() {
@@ -365,6 +445,9 @@ function selectedOptionId() {
 }
 
 function handleAnswer() {
+  if (state.transitionLock) {
+    return;
+  }
   const scene = currentScene();
   if (!scene) {
     return;
@@ -392,27 +475,36 @@ function handleAnswer() {
   }
 
   if (picked === scene.correctOptionId) {
+    state.transitionLock = true;
+    setPuzzleControlsEnabled(false);
     els.feedbackText.textContent = t(state.story.ui.correct);
     els.feedbackText.classList.add("ok");
     state.scores[turnParticipantIndex()] += 1;
+    playSfx("correct");
 
     setTimeout(() => {
       advanceTurn();
       nextScene();
       renderGame();
       showTurnBanner("scene");
+      playSfx("scene");
+      state.transitionLock = false;
     }, 900);
     return;
   }
 
+  state.transitionLock = true;
+  setPuzzleControlsEnabled(false);
   els.feedbackText.textContent = t(state.story.ui.incorrect);
   els.feedbackText.classList.add("error");
+  playSfx("wrong");
 
   setTimeout(() => {
     advanceTurn();
     clearFeedback();
     renderGame();
     showTurnBanner("wrong");
+    state.transitionLock = false;
   }, 800);
 }
 
