@@ -54,6 +54,15 @@ const els = {
   sceneBridgeLabel: document.getElementById("scene-bridge-label"),
   sceneBridgeText: document.getElementById("scene-bridge-text"),
   sceneBridgeNext: document.getElementById("scene-bridge-next"),
+  mapTitle: document.getElementById("map-title"),
+  mapNode1: document.getElementById("map-node-1"),
+  mapNode2: document.getElementById("map-node-2"),
+  mapNode3: document.getElementById("map-node-3"),
+  mapNode4: document.getElementById("map-node-4"),
+  mapNode5: document.getElementById("map-node-5"),
+  mapNode6: document.getElementById("map-node-6"),
+  mapNode7: document.getElementById("map-node-7"),
+  mapNode8: document.getElementById("map-node-8"),
   objectiveLabel: document.getElementById("objective-label"),
   objectiveText: document.getElementById("objective-text"),
   puzzleLabel: document.getElementById("puzzle-label"),
@@ -174,6 +183,14 @@ function showTurnBanner(kind) {
 
 function currentScene() {
   return state.activeScenes[state.sceneIndex];
+}
+
+function baseSceneId(sceneId) {
+  if (!sceneId) {
+    return "";
+  }
+  const parts = sceneId.split("-");
+  return parts.length >= 2 ? `${parts[0]}-${parts[1]}` : sceneId;
 }
 
 function currentResponder() {
@@ -324,9 +341,33 @@ function renderCompleted() {
   els.roundValue.textContent = `${state.activeScenes.length} / ${state.activeScenes.length}`;
   els.turnValue.textContent = "-";
   els.gameScreen.classList.remove("bridge-focus", "ending-focus");
+  renderMap(null);
 
   els.gameScreen.style.backgroundImage = `url("images/img_scene_9_victory.png")`;
   playSfx("scene");
+}
+
+function renderMap(scene) {
+  const ui = state.story.ui;
+  els.mapTitle.textContent = t(ui.mapTitle);
+  els.mapNode1.textContent = t(ui.mapNode1);
+  els.mapNode2.textContent = t(ui.mapNode2);
+  els.mapNode3.textContent = t(ui.mapNode3);
+  els.mapNode4.textContent = t(ui.mapNode4);
+  els.mapNode5.textContent = t(ui.mapNode5);
+  els.mapNode6.textContent = t(ui.mapNode6);
+  els.mapNode7.textContent = t(ui.mapNode7);
+  els.mapNode8.textContent = t(ui.mapNode8);
+
+  const currentBase = scene ? baseSceneId(scene.id) : "";
+  const currentIndex = scene ? state.story.scenes.findIndex((item) => item.id === currentBase) : -1;
+  const mapNodes = Array.from(document.querySelectorAll(".map-node"));
+
+  mapNodes.forEach((node, index) => {
+    const nodeSceneId = node.getAttribute("data-map-node");
+    node.classList.toggle("active", Boolean(scene && nodeSceneId === currentBase));
+    node.classList.toggle("completed", currentIndex >= 0 && index < currentIndex);
+  });
 }
 
 function renderGame() {
@@ -365,6 +406,7 @@ function renderGame() {
   els.sceneTitle.textContent = t(scene.title);
   els.sceneDescription.textContent = t(scene.description);
   renderSceneBridge(scene);
+  renderMap(scene);
   els.objectiveText.textContent = t(scene.objective);
   els.puzzleQuestion.textContent = t(scene.question);
 

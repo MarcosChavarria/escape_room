@@ -180,7 +180,43 @@
                "epilogueText":  {
                                     "en":  "As the final lock opens, the Time Core stabilizes and a warm light floods Chrono Academy. The loop dissolves, clocks return to normal, and the corridors fill with life again. Your team did not escape by luck, but by listening, reasoning, and trusting each other in every challenge.",
                                     "es":  "Cuando se abre la ultima cerradura, el Nucleo del Tiempo se estabiliza y una luz calida inunda la Academia Chrono. El bucle se disuelve, los relojes vuelven a la normalidad y los pasillos recuperan su vida. Tu equipo no escapo por suerte, sino por escuchar, razonar y confiar entre ustedes en cada desafio."
-                                }
+                                },
+               "mapTitle":  {
+                                "en":  "School Map",
+                                "es":  "Mapa de la escuela"
+                            },
+               "mapNode1":  {
+                                "en":  "Archive Hall",
+                                "es":  "Archivos"
+                            },
+               "mapNode2":  {
+                                "en":  "Map Room",
+                                "es":  "Mapas"
+                            },
+               "mapNode3":  {
+                                "en":  "Chem Lab",
+                                "es":  "Lab. quimica"
+                            },
+               "mapNode4":  {
+                                "en":  "Server Room",
+                                "es":  "Servidores"
+                            },
+               "mapNode5":  {
+                                "en":  "Hologram",
+                                "es":  "Holograma"
+                            },
+               "mapNode6":  {
+                                "en":  "Observatory",
+                                "es":  "Observatorio"
+                            },
+               "mapNode7":  {
+                                "en":  "Clock Tunnel",
+                                "es":  "Tunel reloj"
+                            },
+               "mapNode8":  {
+                                "en":  "Core Gate",
+                                "es":  "Portal final"
+                            }
            },
     "scenes":  [
                    {

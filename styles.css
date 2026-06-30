@@ -345,6 +345,59 @@ body.game-active .puzzle-box {
   overflow: auto;
 }
 
+body.game-active .school-map {
+  position: absolute;
+  left: 0.7rem;
+  bottom: 0.7rem;
+  width: min(320px, 34vw);
+  background: rgba(8, 14, 24, 0.84);
+  border: 1px solid rgba(68, 95, 117, 0.92);
+  border-radius: 10px;
+  padding: 0.55rem 0.6rem;
+  backdrop-filter: blur(3px);
+  z-index: 2;
+  display: grid;
+  gap: 0.45rem;
+}
+
+body.game-active .school-map h3 {
+  font-size: 0.86rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+body.game-active .map-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+body.game-active .map-node {
+  background: rgba(28, 42, 56, 0.85);
+  border: 1px solid rgba(81, 107, 128, 0.75);
+  border-radius: 6px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.2rem;
+  font-size: 0.72rem;
+  line-height: 1.15;
+  color: #c7d7e8;
+}
+
+body.game-active .map-node.active {
+  border-color: #6ec1ff;
+  box-shadow: 0 0 0 1px rgba(110, 193, 255, 0.6), inset 0 0 20px rgba(110, 193, 255, 0.18);
+  color: #f2f8ff;
+}
+
+body.game-active .map-node.completed {
+  border-color: rgba(73, 186, 137, 0.75);
+  background: rgba(24, 60, 52, 0.72);
+}
+
 body.game-active .game-box.bridge-focus::before {
   background: linear-gradient(180deg, rgba(7, 12, 20, 0.72), rgba(7, 12, 20, 0.82));
 }
@@ -353,7 +406,8 @@ body.game-active .game-box.bridge-focus .status-board,
 body.game-active .game-box.bridge-focus .scoreboard-box,
 body.game-active .game-box.bridge-focus .scene-header,
 body.game-active .game-box.bridge-focus .objective-box,
-body.game-active .game-box.bridge-focus .puzzle-box {
+body.game-active .game-box.bridge-focus .puzzle-box,
+body.game-active .game-box.bridge-focus .school-map {
   opacity: 0.35;
 }
 
@@ -462,6 +516,11 @@ body.game-active #game-screen span {
       "bridge"
       "objective"
       "puzzle";
+  }
+
+  body.game-active .school-map {
+    position: static;
+    width: 100%;
   }
 
   .turn-banner {
